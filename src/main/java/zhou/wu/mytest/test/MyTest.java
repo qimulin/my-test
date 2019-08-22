@@ -10,7 +10,7 @@ public class MyTest {
 
     public static void main(String[] args) {
         Map<String,String> testMap = new HashMap<>();
-        // v3
+        // v6
         testMap.put("1","1");
         testMap.put("2","2");
         testMap.put("3","3");
