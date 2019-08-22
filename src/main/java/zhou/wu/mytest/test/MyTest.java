@@ -10,9 +10,9 @@ public class MyTest {
 
     public static void main(String[] args) {
         Map<String,String> testMap = new HashMap<>();
-        testMap.put("1","31");
-        testMap.put("2","32");
-        testMap.put("3","33");
+        testMap.put("1","41");
+        testMap.put("2","42");
+        testMap.put("3","43");
         Map<String,String> testMap1 = testMap;
         removeField(testMap1);
         System.out.println(testMap.size());
