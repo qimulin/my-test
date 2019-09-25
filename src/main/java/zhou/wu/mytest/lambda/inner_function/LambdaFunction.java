@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  */
 public class LambdaFunction {
     //  函数式接口类型  参数类型  返回类型  说明
-    //  Consumer<T>消费型接口  T void  对类型为T的对象操作，方法：void accept(T t)
+    //  ConsumerMain<T>消费型接口  T void  对类型为T的对象操作，方法：void accept(T t)
     @Test
     public void test1() throws Exception {
         shop(10000.0, new Consumer<Double>() {
