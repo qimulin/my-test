@@ -1,5 +1,7 @@
 package zhou.wu.mytest.test;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -8,6 +10,7 @@ import java.util.*;
 /**
  * Created by lin.xichun on 2019/6/12
  */
+@Slf4j
 public class MyTest {
 
     public static void main(String[] args) {
@@ -24,6 +27,9 @@ public class MyTest {
 //        BigDecimal b =new BigDecimal("20,001.00");
 //        BigDecimal b =readStrAsBigDecimalAndCheckFormat(null);
 //        System.out.println(b);
+//        Byte flag = new Byte("3");
+//        System.out.println(castModifyResultToMchSignStatus(flag));
+        retryConfirm(1,5);
     }
 
     public static void removeField(Map map){
@@ -40,5 +46,54 @@ public class MyTest {
             return parse;
         }
         return null;
+    }
+
+    /**
+     * 根据修改结果获取进件状态
+     * @author Lin.xc
+     * @date 2019-09-26
+     * */
+    public static String castModifyResultToMchSignStatus(Byte modifyResult){
+        switch (modifyResult){
+            case 0:
+                return "00";
+            case 1:
+                return "11";
+            case 2:
+                return "22";
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * 重试确认进件记录是否为空
+     * @author Lin.xc
+     * @description
+     * */
+    private static boolean retryConfirm(int currNum,int maxRetryNum){
+        // 如果当前次数小于最大重试次数，则重试查询
+        if(currNum<=maxRetryNum){
+            log.info("本次重试确认对象是否为空，最大重试次数[{}]，当前次数[{}]",maxRetryNum,currNum);
+            // 查询通道状态
+            String merchantSign = null;
+//            if(currNum==3){
+//                merchantSign="lxc";
+//            }
+            if (merchantSign == null) {
+                // 为空，休息3s，再次重试
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return retryConfirm(currNum+1, maxRetryNum);
+            }else{
+                System.out.println("重试跳出！");
+                return false;
+            }
+        }
+        System.out.println("重试完成！");
+        return true;
     }
 }
