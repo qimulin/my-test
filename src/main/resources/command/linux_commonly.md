@@ -1,0 +1,92 @@
+# Linux常用命令个人整理
+
+
+
+## 文件篇
+### 查询
+某目录下搜索某个文件夹
+>find /目录 -name 'hs_err_pid6.log' -ls
+
+### 查看
+判断-n lineNo logFileName后面行号的作用，
+lineNo前面带+号表示正着数第LineNo行；
+lineNo前面带-号表示倒着数第LineNo行；
+如果前面不带（+/-）符号的，则tail修饰的话表示倒着数第LineNo行；head修饰的话表示正着数第LineNo行
+
+#### tail
+**tail: -n  是显示行号；相当于nl命令；例子如下：**
+> tail -100f test.log      实时监控100行日志
+
+>> Ctrl + c 终止 tail 命令
+
+>> Ctrl + s 暂停 tail 命令
+
+>>Ctrl + q 继续 tail 命令
+
+> tail -n +10 test.log    查询10行之后的所有日志;
+
+#### head
+**跟tail是相反的，tail是看后多少行日志；例子如下：**
+> head -n 10  test.log   查询日志文件中的头10行日志;
+
+> head -n -10  test.log   查询日志文件除了最后10行的其他所有日志;
+
+#### cat
+**tac是倒序查看，是cat单词反写；例子如下：**
+> cat -n test.log |grep "debug"   查询关键字的日志
+
+> cat filename 一次显示整个文件
+
+
+### 操作
+
+##Docker类
+查看正在运行的容器信息，显示2分钟前启动运行
+>docker ps
+
+查看所有镜像
+>docker images
+
+进入容器：docker attach 容器ID
+>docker exec -it 容器ID /bin/bash 
+
+退出
+>exit 或者 Ctrl+P+Q
+
+拷贝容器日志到服务器某个文件夹
+>docker cp 83b46f9ae0c7:/var/logs/merchant-sign-service/info.log /var/logs/merchant-sign-service/lxc/
+
+查询运行容器的配置信息
+>docker inspect bcf01d6a01b0
+
+查看容器的环境变量
+>docker exec daf76f41e146 env
+
+运行某个镜像，参数自己添加（运行容器：docker run -it 镜像名 /bin/bash）
+>docker run -p 8761:8761 -t eureka-server
+
+直接关闭容器
+>docker kill 容器ID或容器名
+
+重启容器
+>docker restart 59ec
+
+通过ID删除镜像
+>docker rmi 89417f0e8861
+
+删除repository:tag的镜像
+>docker rmi allen_mysql:5.7
+
+通过ID删除镜像
+>docker rmi 89417f0e8861
+
+下载centos镜像,运行一个名为mycentos的容器,并在容器里运行/bin/bash
+>docker run -ti --name mycentos centos /bin/bash
+
+## Mysql类
+
+## 表格示例
+表头|表头|表头
+---|:--:|---:
+内容|内容很多很多很多|内容
+内容|内容|内容
