@@ -12,7 +12,7 @@ import zhou.wu.mytest.web.domain.AutoUserInfo;
 import zhou.wu.mytest.web.service.UserInfoService;
 
 /**
- * 自解：事务的隔离级别和Mybatis的一级缓存貌似会影响到，这个后续我还需要多研究
+ * TODO：自解：事务的隔离级别和Mybatis的一级缓存貌似会影响到，这个后续我还需要多研究
  * @author Lin.xc
  * @date 2019/10/14
  */

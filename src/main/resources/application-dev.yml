@@ -55,3 +55,8 @@ spring:
 mybatis:
   mapper-locations: classpath:web/mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: zhou.wu.mytest.web.domain  # 注意：对应实体类的路径
+  configuration:
+    # Mybatis 使用本地缓存机制（local cache）来防止循环引用和加速重复嵌套查询。
+    # SESSION：默认设置，一个 session 期间的所有查询执行都将被缓存。
+    # STATEMENT：本地 session 仅在语句执行时使用，且对同一个 session 的不同调用不会共享数据。
+    local-cache-scope: statement

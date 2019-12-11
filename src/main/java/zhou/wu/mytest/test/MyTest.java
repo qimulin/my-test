@@ -12,8 +12,9 @@ import java.util.*;
  */
 @Slf4j
 public class MyTest {
-
+    public int init;
     public static void main(String[] args) {
+        System.out.println("init不初始化默认值为"+(new MyTest()).init);
 //        Map<String,String> testMap = new HashMap<>();
 ////        System.out.println(Objects.equals("lxc","lxx"));
 ////        // v6-3
@@ -29,7 +30,7 @@ public class MyTest {
 //        System.out.println(b);
 //        Byte flag = new Byte("3");
 //        System.out.println(castModifyResultToMchSignStatus(flag));
-        retryConfirm(1,5);
+//        retryConfirm(1,5);
     }
 
     public static void removeField(Map map){

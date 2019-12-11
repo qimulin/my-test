@@ -1,6 +1,5 @@
 package zhou.wu.mytest.stream.api;
 
-import lombok.AllArgsConstructor;
 import org.junit.Test;
 
 import java.util.*;

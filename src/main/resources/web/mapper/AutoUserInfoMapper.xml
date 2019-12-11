@@ -18,12 +18,12 @@
     limit 1
   </select>
 <!--  flushCache="true" useCache="false"-->
+<!--  for update-->
   <select id="selectByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List" />
     from user_info
     where userNo = #{userNo,jdbcType=VARCHAR}
-    for update
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_info

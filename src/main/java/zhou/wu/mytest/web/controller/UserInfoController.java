@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zhou.wu.mytest.web.annotation.DemoAnnotation;
 import zhou.wu.mytest.web.domain.AutoUserInfo;
 import zhou.wu.mytest.web.service.UserInfoService;
 
@@ -20,14 +21,17 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @PostMapping
-    public Boolean insertUserInfo(@RequestBody AutoUserInfo userInfo){
+    @DemoAnnotation(value = "insertUserInfo", primaryId = "#userInfo.userage")
+    public AutoUserInfo insertUserInfo(@RequestBody AutoUserInfo userInfo){
         AutoUserInfo autoUserInfo = userInfoService.selectByUserNo(userInfo.getUserno());
-        if(autoUserInfo==null){
-            userInfoService.insertAutoUserInfo(userInfo);
-        }else{
-            log.info("无需插入！[{}]", JSON.toJSONString(userInfo));
-        }
-        return Boolean.TRUE;
+//        if(autoUserInfo==null){
+//            userInfoService.insertAutoUserInfo(userInfo);
+//        }else{
+//            log.info("无需插入！[{}]", JSON.toJSONString(userInfo));
+//        }
+        System.out.println("虚的插入！");
+//        return Boolean.TRUE;
+        return autoUserInfo;
     }
 
     @PutMapping
