@@ -156,6 +156,7 @@ public class RestClientSearchTest67 {
     @SuppressWarnings("Duplicates")
     private static void pageRecord(RestHighLevelClient highLevelClient){
         BoolQueryBuilder boolBuilder = QueryBuilders.boolQuery();
+//        boolBuilder.must(QueryBuilders.termsQuery())
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         // 设置一些公共参数
         setCommonCondition(boolBuilder);

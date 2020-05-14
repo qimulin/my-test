@@ -6,14 +6,9 @@ package zhou.wu.mytest.test;
  */
 public class Test1 {
     public static void main(String[] args) {
-        try{
-            String str = "2.x";
-            Integer.valueOf(str);
-        }catch (Exception e){
-            System.out.println("catch");
-            throw e;
-        }finally {
-            System.out.println("finally");
-        }
+        double num1 = 0.02;
+        double num2 = 0.03;
+        double num3 = num2-num1;
+        System.out.println(num3);
     }
 }
