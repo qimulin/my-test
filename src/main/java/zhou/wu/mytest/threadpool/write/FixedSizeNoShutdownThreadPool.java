@@ -10,11 +10,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 手写一个线程池
- * 【注意】可先参考NoShutdown的那个类，方便理解
+ * 【注意】此处先不考虑shutDown方法的处理，便更好让新手理解
  * @author Lin.xc
  * @date 2020/5/14
  */
-public class FixedSizeThreadPool {
+public class FixedSizeNoShutdownThreadPool {
     /**
      * 如果需要手写一个线程池，我们需要什么？
      * 1、需要一个仓库；
@@ -34,36 +34,20 @@ public class FixedSizeThreadPool {
     // 需要干活的：为上面workers中的一个元素对象
     public static class Worker extends Thread {
 
-        private FixedSizeThreadPool pool;
+        private FixedSizeNoShutdownThreadPool pool;
 
-        public Worker(FixedSizeThreadPool pool) {
+        public Worker(FixedSizeNoShutdownThreadPool pool) {
             this.pool = pool;
         }
 
         @Override
         public void run() {
             // 去仓库拿东西
-            /**
-             * 【区别于NoShutdown】
-             * 对应关闭线程池方法注释——b、关闭的时候，如果仓库还有任务需要执行完
-             * */
-            while(this.pool.isWorking // 若在工作中
-                    || this.pool.blockingQueue.size()>0 // 若队列大小>0，即仓库还有任务
-            ){
+            while(true){
                 Runnable task = null;
                 try {
-                    if(this.pool.isWorking){
-                        // 用take方法移除队列元素，可以让其他任务阻塞地等着
-                        task = this.pool.blockingQueue.take();
-                    }else{
-                        // 用poll方法移除队列元素，返回特殊值
-                        /**
-                         * 【区别于NoShutdown】
-                         * 对应关闭线程池方法注释——c、关闭的时候，如果线程去仓库拿东西，不能阻塞
-                         */
-                        task = this.pool.blockingQueue.poll();
-                    }
-
+                    // 用take方法去任务，可以让其他任务阻塞地等着
+                    task = this.pool.blockingQueue.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -80,7 +64,7 @@ public class FixedSizeThreadPool {
 
     // 需要初始化仓库和线程集合
     @SneakyThrows
-    public FixedSizeThreadPool(int poolSize, int taskSize)  {
+    public FixedSizeNoShutdownThreadPool(int poolSize, int taskSize)  {
         // 参数校验
         if(poolSize<=0 || taskSize<=0){
             throw new IllegalAccessException("非法参数");
@@ -102,15 +86,7 @@ public class FixedSizeThreadPool {
 
     // 需要向仓库放任务的方法“不阻塞”返回一个特殊值
     public boolean submit(Runnable task){
-        /**
-         * 【区别于NoShutdown】
-         * 对应关闭线程池方法注释——a、关闭的时候，仓库要停止有新的线程进来
-         * */
-        if(this.isWorking){
-            return this.blockingQueue.offer(task);
-        }else{
-            return false;
-        }
+        return this.blockingQueue.offer(task);
     }
 
     // 需要向仓库放任务的方法“阻塞”
@@ -131,22 +107,11 @@ public class FixedSizeThreadPool {
 
     public void shutDown(){
         this.isWorking = false;
-        /**
-         * 【区别于NoShutdown】
-         * 对应关闭线程池方法注释——d、关闭的时候，如果去仓库拿东西线程已经阻塞了，那需要中断
-         * */
-        for (Thread thread:
-             this.workers) {
-            // 线程状态为阻塞或等待
-            if(thread.getState().equals(Thread.State.BLOCKED) || thread.getState().equals(Thread.State.WAITING)){
-                thread.interrupt();
-            }
-        }
     }
 
     // main方法使用线程池
     public static void main(String[] args) {
-        FixedSizeThreadPool pool = new FixedSizeThreadPool(3,6);
+        FixedSizeNoShutdownThreadPool pool = new FixedSizeNoShutdownThreadPool(3,6);
         for(int i=0; i<6; i++){
 //            pool.submit(
 //                new Runnable() {
@@ -157,7 +122,7 @@ public class FixedSizeThreadPool {
 //                            // 延迟，好看出效果
 //                            Thread.sleep(3000);
 //                        } catch (InterruptedException e) {
-//                            System.out.println("一个线程被唤醒");
+//                            e.printStackTrace();
 //                        }
 //                    }
 //                }
@@ -172,12 +137,17 @@ public class FixedSizeThreadPool {
                                 // 延迟，好看出效果
                                 Thread.sleep(3000);
                             } catch (InterruptedException e) {
-                                System.out.println("一个线程被唤醒");
+                                e.printStackTrace();
                             }
                         }
                     }
             );
         }
-        pool.shutDown();
+
+        System.out.println("Main方法完毕！");
+        /**
+         * 从控制台结果可以看出仓库满的任务被执行掉之后才能重新再放入新的任务
+         * 还有，如果7没有实现的话，控制台就没有结束，线程池就一直开在那里
+         * */
     }
 }
