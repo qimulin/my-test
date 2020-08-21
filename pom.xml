@@ -87,13 +87,13 @@
     </dependencies>
 
     <!-- 发布相关 -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>nexus-snapshots</name>
-            <url>http://nexus.chuangjiangx.com/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <snapshotRepository>-->
+<!--            <id>nexus-snapshots</id>-->
+<!--            <name>nexus-snapshots</name>-->
+<!--            <url>http://nexus.chuangjiangx.com/nexus/content/repositories/snapshots/</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
 
     <build>
         <plugins>
@@ -110,7 +110,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.17</version>
+                        <version>8.0.21</version>
                     </dependency>
                 </dependencies>
             </plugin>

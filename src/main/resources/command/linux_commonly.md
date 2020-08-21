@@ -1,6 +1,27 @@
 # Linux常用命令个人整理
 
+## 资源使用篇
+top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况
+> top  
+> 显示解释：  
+> PID：进程的ID  
+> USER：进程所有  
+> PR：进程的优先级别，越小越优先被执  
+> VIRT：进程占用的虚拟内  
+> RES：进程占用的物理内  
+> SHR：进程使用的共享内  
+> S：进程的状态,S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负  
+> %CPU：进程占用CPU的使用  
+> %MEM：进程使用的物理内存和总内存的百分  
+> TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值  
+> COMMAND：进程启动命令名称  
 
+
+调用历史命令
+> 注意：此markdown语法，两个空格即可换行
+> history [n]  
+> [root@jb51 Desktop]#history [-c]  
+> [root@jb51 Desktop]#history [-raw] histfiles
 
 ## 文件篇
 ### 查询
@@ -71,6 +92,9 @@ lineNo前面带-号表示倒着数第LineNo行；
 
 重启容器
 >docker restart 59ec
+
+查看容器进程在宿主机的 PID(docker 中运行的进程, 本质上是运行在 host 上的)
+> docker container top 容器id
 
 通过ID删除镜像
 >docker rmi 89417f0e8861

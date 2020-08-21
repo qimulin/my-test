@@ -19,6 +19,9 @@ public class ThreadPoolMain {
         tasks.add(() ->b.doDeal(2));
         try {
             List<Future<String>> futures = pool.invokeAll(tasks);
+//            for(Future<String> f: futures){
+//                f.get()
+//            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
