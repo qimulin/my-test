@@ -11,19 +11,32 @@ import java.util.Optional;
  * 4、但相对于底层库来说，在应用级别的代码中，Null往往是导致混乱，疑难问题和模糊语义的元凶，就如同我们举过的Map.get(key)的例子
  * @author lin.xc
  * @date 2020/9/17
+ *
+ * 创建的三种方式
+ * public static void testBase(){
+ *     //one
+ *     Optional<Integer> possible = Optional.fromNullable(5);  //创建允许null值的Optional
+ *
+ *     //two
+ *     Integer nubmerone=4;
+ *     Optional<Integer> integerOptional = Optional.of(nubmerone);//若引用为null则快速失败触发java.lang.NullPointerException
+ *
+ *     //three
+ *     Optional<Integer> nullOptional=Optional.absent();//创建引用缺失的Optional实例,就是为NULL的
+ * }
  **/
 public class OptionalTest {
     public static void main(String[] args) {
         // Optional类已经成为Java 8类库的一部分，在Guava中早就有了，可能Oracle是直接拿来使用了
         // Optional用来解决空指针异常，使代码更加严谨，防止因为空指针NullPointerException对代码造成影响
         String msg = null;
-        Optional<String> optional = Optional.of(msg);
+        Optional<String> optional = Optional.ofNullable(msg);
         // 判断是否有值，不为空
         boolean present = optional.isPresent();
         System.out.println("该值是否不为空："+present);
         // 如果有值，则返回值，如果等于空则抛异常
-        String value = optional.get();
-        System.out.println("获取该值为："+value);
+//        String value = optional.get();
+//        System.out.println("获取该值为："+value);
         // 如果为空，返回else指定的值
         String elseValue = optional.orElse("hi");
         System.out.println("若不为空，该值为原值；若为空，处理该值。结果为："+elseValue);
