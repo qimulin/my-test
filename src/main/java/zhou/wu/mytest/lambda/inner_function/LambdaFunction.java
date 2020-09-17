@@ -1,5 +1,6 @@
 package zhou.wu.mytest.lambda.inner_function;
 
+import lombok.Data;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Created by lin.xc on 2019/7/19
@@ -82,5 +84,28 @@ public class LambdaFunction {
             }
         }
         return newList;
+    }
+
+    private <T> boolean checkDuplicateVirColName(List<T> paramList1, List<T> paramList2, Function<T, String> f) {
+        List<String> stringList = paramList1.stream().map(f).collect(Collectors.toList());
+        List<String> stringList2 = paramList2.stream().map(f).collect(Collectors.toList());
+        stringList.addAll(stringList2);
+        long count = stringList.stream().distinct().count();
+        if (stringList.size() == count) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static void main(String[] args) {
+        LambdaFunction lambdaFunction = new LambdaFunction();
+        lambdaFunction.checkDuplicateVirColName(null,null,Person::getName);
+    }
+
+    @Data
+    class Person{
+        Integer id;
+        String name;
     }
 }

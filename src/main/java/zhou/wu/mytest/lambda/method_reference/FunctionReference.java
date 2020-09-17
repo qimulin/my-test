@@ -18,22 +18,30 @@ public class FunctionReference {
     }
     public static void main(String[] args) {
         // 一般写法
-        printString(new Printable(){    // 传入Printable对象时定义其print方法的实现->System.out.println传入方法的参数
-            @Override
-            public void print(String str) {
-                System.out.println(str);
-            }
-        });
-        // Lambda普通写法
-        printString(s -> System.out.println(s));
+//        printString(new Printable(){    // 传入Printable对象时定义其print方法的实现->System.out.println传入方法的参数
+//            @Override
+//            public void print(String str) {
+//                System.out.println(str);
+//            }
+//        });
+//        // Lambda普通写法
+//        printString(s -> System.out.println(s));
         // Lambda方法引用
         /**
          * 双冒号:: 为引用运算符，而它所在的表达式被称为方法引用。
          * 如果Lambda要表达的函数方案已经存在于某个方法的实现中，那么则可以通过双冒号来引用该方法作为Lambda的替代者。
          * 自解：既然我Printable要做的事只是System.out.println(参数)，那我直接将参数全部交给PrintStream（System.out）对象去调用它的println方法，
          * 即PrintStream的println方法可以帮我完成这个操作
+         * 即Printable具体的传入System.out::println去实现该方法
          * */
         printString(System.out::println);
+        // 调用对象实例方法
+        MethodA mA = new MethodA();
+        printString(mA::output);
+        // 调用静态方法
+        printString(StaticMethodB::output);
+        // 调用静态属性中的方法
+        printString(StaticPropertyMethodA.methodA::output);
     }
 
     @Test
