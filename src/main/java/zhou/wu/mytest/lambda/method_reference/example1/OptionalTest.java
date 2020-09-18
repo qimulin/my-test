@@ -31,6 +31,8 @@ public class OptionalTest {
         // Optional用来解决空指针异常，使代码更加严谨，防止因为空指针NullPointerException对代码造成影响
         String msg = null;
         Optional<String> optional = Optional.ofNullable(msg);
+        // 用of方法都传入null值会报异常
+//        Optional<String> optional = Optional.of(msg);
         // 判断是否有值，不为空
         boolean present = optional.isPresent();
         System.out.println("该值是否不为空："+present);
