@@ -1,2 +1,3 @@
 demo:
-  param: test-value
+  param1: test-value1
+  param2: test-velue2
