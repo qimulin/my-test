@@ -1,3 +1,3 @@
 demo:
-  param1: lable-master,profile-dev,value1
-  param2: lable-master,profile-dev,velue2
+  param1: lable-develop,profile-dev,value1
+  param2: lable-develop,profile-dev,velue2
