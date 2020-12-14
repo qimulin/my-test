@@ -12,11 +12,13 @@ public class RegexMatches {
 //        String str = "12334sasasa";
 //        String pattern = "[\\d]{1,11}"; // "[\\d]{1,11}";
 //        /w
-        String str = "12345";
-        String pattern = "^[\\w]{6,16}";
+        String str = "123456789012345678900.0";
+        String pattern = "(\\d+|0)(\\.\\d{0,2})?";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(str);
         System.out.println(m.matches());
+        String s="lxc";
+        System.out.println(s.substring(5,2));
     }
 
 }

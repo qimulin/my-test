@@ -24,6 +24,25 @@ top命令是Linux下常用的性能分析工具，能够实时显示系统中各
 > [root@jb51 Desktop]#history [-raw] histfiles
 
 ## 文件篇
+### 移动
+>格式：mv [选项(option)] 源文件或目录 目标文件或目录
+
+>使用命令：mv webdata /bin/usr/
+
+>mv /usr/lib/* /zone 
+>是将/usr/lib/下所有的东西移到/zone/中。
+
+>mv /usr/lib/*.txt /zone
+>是将lib下以txt结尾的所有文件移到/zone中。 其他类型，以此类推。
+
+### 拷贝
+>cp dir1/a.doc dir2 表示将dir1下的a.doc文件复制到dir2目录下
+
+>cp -r dir1 dir2 表示将dir1及其dir1下所包含的文件复制到dir2下
+
+>cp -r dir1/. dir2 表示将dir1下的文件复制到dir2,不包括dir1目录
+
+说明：cp参数 -i：询问，如果目标文件已经存在，则会询问是否覆盖；
 ### 查询
 某目录下搜索某个文件夹
 >find /目录 -name 'hs_err_pid6.log' -ls

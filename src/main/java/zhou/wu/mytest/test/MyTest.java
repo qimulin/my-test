@@ -1,5 +1,6 @@
 package zhou.wu.mytest.test;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -15,12 +16,16 @@ public class MyTest {
     public int init;
     public static void main(String[] args) {
         System.out.println("init不初始化默认值为"+(new MyTest()).init);
-//        Map<String,String> testMap = new HashMap<>();
-////        System.out.println(Objects.equals("lxc","lxx"));
-////        // v6-3
-////        testMap.put("1","1");
-////        testMap.put("2","2");
-////        testMap.put("3","3");
+        Map<String,String> testMap = new HashMap<>();
+        System.out.println(Objects.equals("lxc","lxx"));
+        // v6-3
+        testMap.put("1","1");
+        testMap.put("2","2");
+        testMap.put("3","3");
+        String s = JSON.toJSONString(testMap);
+        System.out.println(s);
+        Map<String,String> testMap1 = JSON.parseObject(s, Map.class);
+
 ////        Map<String,String> testMap1 = testMap;
 ////        removeField(testMap1);
 ////        System.out.println(testMap.size());
@@ -31,6 +36,7 @@ public class MyTest {
 //        Byte flag = new Byte("3");
 //        System.out.println(castModifyResultToMchSignStatus(flag));
 //        retryConfirm(1,5);
+        System.out.println("执行完毕！");
     }
 
     public static void removeField(Map map){

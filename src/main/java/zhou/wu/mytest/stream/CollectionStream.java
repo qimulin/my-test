@@ -1,5 +1,6 @@
 package zhou.wu.mytest.stream;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import zhou.wu.mytest.lambda.filter.Product;
@@ -125,5 +126,19 @@ public class CollectionStream {
         System.out.println("========根据商品价格是否大于1000进行分区========================");
         Map<Boolean, List<Product>> map = products.stream().collect(Collectors.partitioningBy(p -> p.getPrice() > 1000));
         System.out.println(map);
+        Integer a [] = {1,2,14,5};
+        List<String> list = new ArrayList<>();
+        list.add("林");
+        list.add("喜");
+        list.add("纯");
+        System.out.println(list.toString());
+        System.out.println(Arrays.toString(a));
+        String preNodeIds="lin,xi,chun";
+        String[] split = preNodeIds.split(",");
+
+        String[] arr = new String[0];
+        String join = StringUtils.join(split);
+        System.out.println("最终值："+join);
+        System.out.println("方法结束！");
     }
 }

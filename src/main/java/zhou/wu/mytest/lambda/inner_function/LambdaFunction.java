@@ -86,7 +86,10 @@ public class LambdaFunction {
         return newList;
     }
 
-    private <T> boolean checkDuplicateVirColName(List<T> paramList1, List<T> paramList2, Function<T, String> f) {
+    /**
+     * 两List判重
+     * */
+    private <T> boolean checkDuplicate(List<T> paramList1, List<T> paramList2, Function<T, String> f) {
         List<String> stringList = paramList1.stream().map(f).collect(Collectors.toList());
         List<String> stringList2 = paramList2.stream().map(f).collect(Collectors.toList());
         stringList.addAll(stringList2);
@@ -98,9 +101,28 @@ public class LambdaFunction {
         }
     }
 
+    /**
+     * 多List判重
+     * */
+    private <T> boolean checkDuplicate(Function<T, String> f, List<T>... paramLists) {
+        List<String> stringList = new ArrayList<>();
+        for(List<T> paramList: paramLists){
+            // 防止stream报空指针
+            if(null!=paramList){
+                stringList.addAll(paramList.stream().map(f).collect(Collectors.toList()));
+            }
+        }
+        long count = stringList.stream().distinct().count();
+        if (stringList.size() == count) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
         LambdaFunction lambdaFunction = new LambdaFunction();
-        lambdaFunction.checkDuplicateVirColName(null,null,Person::getName);
+        lambdaFunction.checkDuplicate(null,null,Person::getName);
     }
 
     @Data
