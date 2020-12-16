@@ -24,6 +24,9 @@ top命令是Linux下常用的性能分析工具，能够实时显示系统中各
 > [root@jb51 Desktop]#history [-raw] histfiles
 
 ## 文件篇
+### 进入目录
+> cd [目录名]
+> 目录名有几个bai符号有特殊的含义du，“..”代表上一级目录、“~”代表HOME目录、“-”代表前一目录
 ### 移动
 >格式：mv [选项(option)] 源文件或目录 目标文件或目录
 
@@ -34,7 +37,6 @@ top命令是Linux下常用的性能分析工具，能够实时显示系统中各
 
 >mv /usr/lib/*.txt /zone
 >是将lib下以txt结尾的所有文件移到/zone中。 其他类型，以此类推。
-
 ### 拷贝
 >cp dir1/a.doc dir2 表示将dir1下的a.doc文件复制到dir2目录下
 
