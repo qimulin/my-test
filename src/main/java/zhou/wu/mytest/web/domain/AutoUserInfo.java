@@ -1,10 +1,6 @@
 package zhou.wu.mytest.web.domain;
 
-import com.alibaba.fastjson.annotation.JSONType;
-
-@JSONType(ignores ={"userid"})
 public class AutoUserInfo {
-
     private Integer userid;
 
     private String userno;

@@ -7,6 +7,8 @@ import zhou.wu.mytest.web.annotation.DemoAnnotation;
 import zhou.wu.mytest.web.domain.AutoUserInfo;
 import zhou.wu.mytest.web.service.UserInfoService;
 
+import java.util.List;
+
 /**
  * @author Lin.xc
  * @date 2019/10/12
@@ -19,12 +21,16 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @PostMapping
     @GetMapping("/by-user-no")
     public AutoUserInfo findUserInfo(String userNo){
         // 根据userNo查询
         AutoUserInfo autoUserInfo = userInfoService.selectByUserNo(userNo);
         return autoUserInfo;
+    }
+
+    @GetMapping("/list")
+    public List<AutoUserInfo> listUserInfo(String userNo){
+        return userInfoService.listAutoUserInfo();
     }
 
     @PostMapping("/add")

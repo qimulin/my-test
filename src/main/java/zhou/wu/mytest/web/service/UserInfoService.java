@@ -2,6 +2,8 @@ package zhou.wu.mytest.web.service;
 
 import zhou.wu.mytest.web.domain.AutoUserInfo;
 
+import java.util.List;
+
 /**
  * @author Lin.xc
  * @date 2019/10/14
@@ -9,6 +11,8 @@ import zhou.wu.mytest.web.domain.AutoUserInfo;
 public interface UserInfoService {
 
     AutoUserInfo selectByUserNo(String userNo);
+
+    List<AutoUserInfo> listAutoUserInfo();
 
     void insertAutoUserInfo(AutoUserInfo userInfo);
 

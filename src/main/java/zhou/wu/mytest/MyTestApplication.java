@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("zhou.wu.mytest.web.dao")
+@MapperScan("zhou.wu.mytest.web.mapper")
 public class MyTestApplication {
 
     public static void main(String[] args) {

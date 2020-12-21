@@ -5,8 +5,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.aop.ProxyMethodInvocation;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
@@ -16,8 +14,8 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 import zhou.wu.mytest.web.annotation.DemoAnnotation;
-import zhou.wu.mytest.web.dao.AutoUserInfoMapper;
 import zhou.wu.mytest.web.domain.AutoUserInfo;
+import zhou.wu.mytest.web.mapper.dao.AutoUserInfoMapper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

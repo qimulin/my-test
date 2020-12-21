@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import zhou.wu.mytest.web.dao.AutoUserInfoMapper;
+import org.springframework.util.CollectionUtils;
 import zhou.wu.mytest.web.domain.AutoUserInfo;
+import zhou.wu.mytest.web.domain.AutoUserInfoExample;
+import zhou.wu.mytest.web.mapper.dal.AutoUserInfoDalMapper;
+import zhou.wu.mytest.web.mapper.dao.AutoUserInfoMapper;
 import zhou.wu.mytest.web.service.UserInfoService;
+
+import java.util.List;
 
 /**
  * TODO：自解：事务的隔离级别和Mybatis的一级缓存貌似会影响到，这个后续我还需要多研究
@@ -22,10 +27,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
     private AutoUserInfoMapper autoUserInfoMapper;
+    @Autowired
+    private AutoUserInfoDalMapper autoUserInfoDalMapper;
 
     @Override
     public AutoUserInfo selectByUserNo(String userNo) {
-        return autoUserInfoMapper.selectByUserNo(userNo);
+        AutoUserInfoExample example = new AutoUserInfoExample();
+        example.createCriteria().andUsernoEqualTo(userNo);
+        List<AutoUserInfo> autoUserInfos = autoUserInfoMapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(autoUserInfos)){
+            return autoUserInfos.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public List<AutoUserInfo> listAutoUserInfo() {
+        return autoUserInfoMapper.selectByExample(null);
     }
 
     @Override
@@ -67,7 +85,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 //            e.printStackTrace();
 //        }
         boolean flag=false;
-        AutoUserInfo autoUserInfo = autoUserInfoMapper.selectByUserNo(userNo);
+        AutoUserInfo autoUserInfo = autoUserInfoDalMapper.getByUserNo(userNo);
         if(autoUserInfo==null){
 //            AutoUserInfo userInfo1=new AutoUserInfo();
 //            userInfo1.setUserno(userNo);
@@ -91,7 +109,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)  // 新起事务
     public Boolean txTest2(String userNo) {
         boolean flag=false;
-        AutoUserInfo autoUserInfo = autoUserInfoMapper.selectByUserNo(userNo);
+        AutoUserInfo autoUserInfo = autoUserInfoDalMapper.getByUserNo(userNo);
         if(autoUserInfo==null){
             log.info("无找到对应记录，userNo：[{}]",userNo);
             return flag;
@@ -113,7 +131,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if(currNum<=maxRetryNum){
             log.info("本次重试确认对象是否为空，最大重试次数[{}]，当前次数[{}]",maxRetryNum,currNum);
             // 查询通道状态
-            AutoUserInfo autoUserInfo = autoUserInfoMapper.selectByUserNo(userNo);
+            AutoUserInfo autoUserInfo = autoUserInfoDalMapper.getByUserNo(userNo);
             if (autoUserInfo == null) {
 //                if(currNum==3){
 //                    AutoUserInfo userInfo1=new AutoUserInfo();
@@ -142,7 +160,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if(currNum<=maxRetryNum){
             log.info("本次重试确认对象是否被修改，最大重试次数[{}]，当前次数[{}]",maxRetryNum,currNum);
             // 查询通道状态
-            AutoUserInfo autoUserInfo = autoUserInfoMapper.selectByUserNo(userNo);
+            AutoUserInfo autoUserInfo = autoUserInfoDalMapper.getByUserNo(userNo);
             if(autoUserInfo==null){
                 log.info("无找到对应记录，userNo：[{}]",userNo);
             }else{
