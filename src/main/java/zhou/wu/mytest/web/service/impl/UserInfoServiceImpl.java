@@ -42,8 +42,29 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public List<AutoUserInfo> listAutoUserInfo() {
-        return autoUserInfoMapper.selectByExample(null);
+    public List<AutoUserInfo> listAutoUserInfo(AutoUserInfo condition) {
+        if(condition==null){
+            return autoUserInfoMapper.selectByExample(null);
+        }
+        AutoUserInfoExample example = new AutoUserInfoExample();
+        AutoUserInfoExample.Criteria criteria = example.createCriteria();
+        if(condition.getUserid()!=null){
+            criteria.andUseridEqualTo(condition.getUserid());
+        }
+
+        if(condition.getUserno()!=null){
+            criteria.andUsernoEqualTo(condition.getUserno());
+        }
+
+        if(condition.getUsername()!=null){
+            criteria.andUsernameEqualTo(condition.getUsername());
+        }
+
+        if(condition.getUserage()!=null){
+            criteria.andUserageEqualTo(condition.getUserage());
+        }
+
+        return autoUserInfoMapper.selectByExample(example);
     }
 
     @Override

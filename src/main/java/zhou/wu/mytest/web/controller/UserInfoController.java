@@ -30,7 +30,14 @@ public class UserInfoController {
 
     @GetMapping("/list")
     public List<AutoUserInfo> listUserInfo(String userNo){
-        return userInfoService.listAutoUserInfo();
+        return userInfoService.listAutoUserInfo(null);
+    }
+
+    @PostMapping("/list/by-cond")
+    public List<AutoUserInfo> listUserInfoByCondition(
+            @RequestBody AutoUserInfo userInfo
+    ){
+        return userInfoService.listAutoUserInfo(userInfo);
     }
 
     @PostMapping("/add")

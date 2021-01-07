@@ -12,7 +12,7 @@ public interface UserInfoService {
 
     AutoUserInfo selectByUserNo(String userNo);
 
-    List<AutoUserInfo> listAutoUserInfo();
+    List<AutoUserInfo> listAutoUserInfo(AutoUserInfo condition);
 
     void insertAutoUserInfo(AutoUserInfo userInfo);
 
