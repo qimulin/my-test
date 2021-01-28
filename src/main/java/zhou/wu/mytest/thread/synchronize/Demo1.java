@@ -7,31 +7,17 @@ package zhou.wu.mytest.thread.synchronize;
 public class Demo1 {
     public static void main(String[] args) {
         Demo1 demo1 = new Demo1();
-        new Thread(){
-            public void run() {
-                demo1.syncMethod(Thread.currentThread().getName(), 1);
-                System.out.println(Thread.currentThread().getName()+"再次执行！");
-                demo1.syncMethod(Thread.currentThread().getName(), 1);
-            };
-        }.start();
+        new Thread(() -> {
+            demo1.syncMethod(Thread.currentThread().getName(), 1);
+            System.out.println(Thread.currentThread().getName()+"再次执行！");
+            demo1.syncMethod(Thread.currentThread().getName(), 1);
+        }).start();
 
-        new Thread(){
-            public void run() {
-                demo1.syncMethod(Thread.currentThread().getName(), 2);
-            };
-        }.start();
+        new Thread(() -> demo1.syncMethod(Thread.currentThread().getName(), 2)).start();
 
-        new Thread(){
-            public void run() {
-                demo1.syncMethod(Thread.currentThread().getName(), 1);
-            };
-        }.start();
+        new Thread(() -> demo1.syncMethod(Thread.currentThread().getName(), 1)).start();
 
-        new Thread(){
-            public void run() {
-                demo1.syncMethod(Thread.currentThread().getName(), 1);
-            };
-        }.start();
+        new Thread(() -> demo1.syncMethod(Thread.currentThread().getName(), 1)).start();
     }
 
     /**
