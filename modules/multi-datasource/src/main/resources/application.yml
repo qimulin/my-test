@@ -1,0 +1,87 @@
+spring:
+    profiles:
+        active: dev
+#    datasource:
+#        # 系统库
+#        system:
+#            # 采用Druid连接池
+#            druid:
+#                driver-class-name: com.mysql.cj.jdbc.Driver
+#                url:
+#                username:
+#                password:
+#                # 初始化连接数
+#                initial-size: 10
+#                # 最大活跃数
+#                max-active: 100
+#                # 请求连接池最大等待时间（单位ms）
+#                max-wait: 15000
+#                # 空闲时，最小连接数
+#                min-idle: 5
+#                # 用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。
+#                validation-query: SELECT 1 FROM DUAL
+#                # 申请连接时执行validationQuery检测连接是否有效，开这个配置会降低性能
+#                test-on-borrow: false
+#                # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+#                test-while-idle: true
+#                # 有两个含义：1) Destroy线程会检测连接的间隔时间 2) testWhileIdle的判断依据 （单位：ms）
+#                time-between-eviction-runs-millis: 60000
+#                # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+#                pool-prepared-statements: false
+#                # 连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作
+#                keep-alive: true
+#        # 其实对于ETL而言，数据源配置也可以存于系统库中，实现动态转换，只不过涉及大改，系统暂不做
+#        # 目标库
+#        #    target:
+#        #      name: source_db
+#        #      enable: true
+#        #      druid:
+#        #        name: system
+#        #        driver-class-name: com.mysql.cj.jdbc.Driver
+#        #        url:
+#        #        username:
+#        #        password:
+#        #        initial-size: 10
+#        #        max-active: 100
+#        #        max-wait: 15000
+#        #        min-idle: 5
+#        #        validation-query: SELECT 1 FROM DUAL
+#        #        test-on-borrow: false
+#        #        test-while-idle: true
+#        #        time-between-eviction-runs-millis: 60000
+#        #        pool-prepared-statements: false
+#        #        keep-alive: true
+#        # 目标库
+#        target:
+#            druid:
+#                driver-class-name: com.aliyun.odps.jdbc.OdpsDriver
+#                url:
+#                username:
+#                password:
+#                initial-size: 5
+#                max-active: 30
+#                max-wait: 60000
+#                min-idle: 5
+#                # 老实讲，针对目标数据源，我认为没什么好验证的，暂时也看不到用连接池的好处
+#                #        validation-query: SELECT 1
+#                #        test-on-borrow: false
+#                #        test-while-idle: false
+#                time-between-eviction-runs-millis: 60000
+#                pool-prepared-statements: false
+#                keep-alive: false
+#                # ODPS这里要注意设置
+#                default-auto-commit: true
+
+mybatis:
+    mapper-locations: classpath:mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+    type-aliases-package: zhou.wu.multi.datasource  # 注意：对应实体类的路径
+    configuration:
+        # Mybatis 使用本地缓存机制（local cache）来防止循环引用和加速重复嵌套查询。
+        # SESSION：默认设置，一个 session 期间的所有查询执行都将被缓存。
+        # STATEMENT：本地 session 仅在语句执行时使用，且对同一个 session 的不同调用不会共享数据。
+        local-cache-scope: statement
+
+# 日志相关配置
+logging:
+    level.root: info
+    level.zhou.wu: info
