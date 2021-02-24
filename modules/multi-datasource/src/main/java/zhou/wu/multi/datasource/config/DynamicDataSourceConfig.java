@@ -69,7 +69,7 @@ public class DynamicDataSourceConfig {
     @ConditionalOnBean(name=BEAN_NAME_TARGET_DS)
     @ConditionalOnProperty(
             name = PREFIX_TARGET_DS+".driver-class-name",
-            havingValue = "com.aliyun.odps.jdbc.OdpsDriver"
+            havingValue = TargetDataSourceSupport.Driver.ODPS
     )
     public Odps odps(
             DruidDataSource targetDataSource
