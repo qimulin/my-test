@@ -12,4 +12,5 @@ public interface MainTestService {
     UserInfo findUserInfo(String userNo);
 
     TabTest findTabTest(Long id);
+
 }
