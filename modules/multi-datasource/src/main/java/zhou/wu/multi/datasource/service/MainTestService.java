@@ -13,4 +13,8 @@ public interface MainTestService {
 
     TabTest findTabTest(Long id);
 
+    void updateTest();
+
+    void updateColValue();
+
 }

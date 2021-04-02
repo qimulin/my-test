@@ -12,4 +12,8 @@
     from user_info
     where userNo = #{userNo,jdbcType=VARCHAR}
   </select>
+
+  <update id="execUpdateSql">
+    ${updateSql}
+  </update>
 </mapper>

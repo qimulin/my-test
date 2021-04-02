@@ -52,6 +52,13 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>${swagger.bootstrap.ui.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>2.27.2</version>
+<!--            <type>pom</type>-->
+<!--            <scope>compile</scope>-->
+        </dependency>
     </dependencies>
 
     <build>
