@@ -1,3 +1,8 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'loggers'
 spring:
   profiles:
     active: dev
@@ -7,9 +12,9 @@ spring:
     # driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 填写你数据库的url、登录名、密码和数据库名
-    url: jdbc:mysql://47.98.158.191:3306/lxc_db?useUnicode=true&characterEncoding=utf8&autoReconnect=true
-    username: root
-    password: 123456
+    url: jdbc:mysql://rm-bp153srx1gt80tl1x2o.mysql.rds.aliyuncs.com/dev_dfactory_business?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=round
+    username: dongxq
+    password: Dongxq@123
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
