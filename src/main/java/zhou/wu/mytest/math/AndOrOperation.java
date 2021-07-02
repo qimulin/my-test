@@ -20,7 +20,7 @@ public class AndOrOperation {
         // 关于 |= 运算符：|= 运算符和 += 这一类的运算符一样，拆解开就是 a = a | b；
         int a = 5; // 0000 0101
         int b = 3; // 0000 0011
-        a |= b; // 0000 00111
+        a |= b; // 0000 0111
         System.out.println("a |= b结果a="+a);
     }
 
