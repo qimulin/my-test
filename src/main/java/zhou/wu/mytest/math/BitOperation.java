@@ -1,4 +1,4 @@
-package zhou.wu.mytest.math.bit_operation;
+package zhou.wu.mytest.math;
 
 /**
  * 位运算（计算机中运算都是以补码进行运算，正数补码等于原码）
