@@ -15,13 +15,21 @@ public class MainTest {
 
         System.out.println("---------- 深拷贝 ----------");
         PersonCp pcp = new PersonCp(24, "李四");
+        Address address = new Address();
+        address.setCity("杭州");
+        address.setCounty("西湖区");
+        address.setStreet("东部软件园");
+        pcp.setAddress(address);
         PersonCp pcp_new = new PersonCp();
         PersonCp pcp_clone = null;
         try {
             // clone方法比new好的地方就是属性也可以都过来。然后克隆体就算设置自己的属性值，也不会影响原始本体
-            pcp_clone = (PersonCp) pcp.clone();
+            pcp_clone = pcp.clone();
             pcp_clone.setAge(18);
             pcp_clone.setName("王五");
+            Address address1 = pcp_clone.getAddress();
+            // 这里修改会影响本体的值，若不想影响本体，则里面引用类型的Address也需要支持Clone，且PersonCp克隆方法里需要调用Address的clone方法
+            address1.setStreet("北部软件园");
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,8 @@ package zhou.wu.mytest.lang.object_copy.demo1;
  **/
 public class PersonCp extends Person implements Cloneable{
 
+    private Address address;
+
     public PersonCp(){
 
     }
@@ -15,7 +17,27 @@ public class PersonCp extends Person implements Cloneable{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    protected PersonCp clone() throws CloneNotSupportedException {
+        PersonCp result = (PersonCp)super.clone();
+        result.setAddress(getAddress().clone());
+        return result;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        if(getAddress()==null){
+            return super.toString();
+        }else{
+            return super.toString() + " --- " + getAddress().toString();
+        }
+    }
+
 }
