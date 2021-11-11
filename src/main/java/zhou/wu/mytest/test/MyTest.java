@@ -1,6 +1,7 @@
 package zhou.wu.mytest.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -16,13 +17,13 @@ public class MyTest {
     public int init;
     public static void main(String[] args) {
         System.out.println("init不初始化默认值为"+(new MyTest()).init);
-        Map<String,String> testMap = new HashMap<>();
+        Map<String,Object> testMap = new HashMap<>();
         System.out.println(Objects.equals("lxc","lxx"));
         // v6-3
         testMap.put("1","1");
         testMap.put("2","2");
-        testMap.put("3","3");
-        String s = JSON.toJSONString(testMap);
+        testMap.put("3",new Date());
+        String s = JSON.toJSONStringWithDateFormat(testMap, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat);
         System.out.println(s);
         Map<String,String> testMap1 = JSON.parseObject(s, Map.class);
 

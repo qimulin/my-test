@@ -1,7 +1,5 @@
 package zhou.wu.mytest;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,10 +20,19 @@ public class MainTest {
 //        log.info("sign", s.toLowerCase());
 //        System.out.println("?requestTime="+String.valueOf(requestTime)
 //                +"&appKey="+appKey+"&sign="+s.toLowerCase());
-        JSONObject str = JSON.parseObject("你好");
-        System.out.println(JSON.toJSONString(str));
-        System.out.println("你好吗");
-//        JSONObject obj = new JSONObject()
-        String s="{\"code\":\"00\",\"msg\":\"成功\",\"data\":\"\",\"datas\":\"{\\\"code\\\":\\\"02\\\",\\\"msg\\\":\\\"未查询到对应的缴税账号\\\"}\",\"dataCount\":1,\"requestId\":null,\"interfaces\":null,\"secondaryResults\":null}";
+//        JSONObject str = JSON.parseObject("你好");
+//        System.out.println(JSON.toJSONString(str));
+//        System.out.println("你好吗");
+        try {
+            System.out.println("try...");
+            int num = 1 / 0;
+        } catch (Exception e) {
+            System.out.println("catch...");
+            System.out.println(e.toString());
+            return;
+        } finally {
+            System.out.println("finally...");
+        }
     }
+
 }

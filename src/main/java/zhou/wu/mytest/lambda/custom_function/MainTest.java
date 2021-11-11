@@ -9,6 +9,7 @@ import java.util.List;
  **/
 public class MainTest {
     public static void main(String[] args) {
+        System.out.println(System.getProperty("os.name"));
         String str = "1234567";
         int maxInx = 5;
         if(str.length()>=maxInx){

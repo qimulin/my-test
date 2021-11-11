@@ -1,9 +1,12 @@
 package zhou.wu.mytest.thread.locksupport;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Lin.xc
  * @date 2020/6/22
  */
+@Slf4j
 public class WaitNotifyTest {
     /**
      * 使用wait，notify来实现等待唤醒功能至少有两个缺点：
@@ -14,7 +17,9 @@ public class WaitNotifyTest {
     private static Object obj = new Object();
     public static void main(String[] args) {
         new Thread(new WaitThread()).start();
-        new Thread(new NotifyThread()).start();
+        Thread thread2 = new Thread(new NotifyThread());
+        thread2.start();
+        log.info("线程2标识：{}", thread2.getId());
     }
     static class WaitThread implements Runnable {
         @Override
@@ -34,6 +39,7 @@ public class WaitNotifyTest {
         @Override
         public void run() {
             synchronized (obj) {
+                log.info("同步对象");
                 System.out.println("start notify!");
                 obj.notify();
                 System.out.println("end notify");
