@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @author lin.xc
  * @date 2020/10/20
  **/
-@Configuration
+//@Configuration 暂无该表，暂时注释
 @EnableScheduling
 public class CompleteScheduleConfig implements SchedulingConfigurer {
 
