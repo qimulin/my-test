@@ -15,6 +15,6 @@ public class TestObj {
     private String name;
 
     public void getMsg(){
-        System.out.println("msg");
+        System.out.println("getMsg");
     }
 }
