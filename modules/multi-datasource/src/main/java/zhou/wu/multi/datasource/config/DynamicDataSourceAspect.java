@@ -28,7 +28,7 @@ public class DynamicDataSourceAspect {
      * */
     @Before("within(zhou.wu..*) && @annotation(ano)")
     public void changeDataSource(JoinPoint point, TargetDataSource ano) throws Throwable {
-        String choseDsName = ano.name();
+        String choseDsName = ano.value();
         if (!DynamicDataSource.containsDataSource(choseDsName)) {
             throw new RuntimeException(String.format("数据源[%s]不存在！", choseDsName));
         }else {
@@ -39,7 +39,7 @@ public class DynamicDataSourceAspect {
 
     @After("@annotation(ano)")
     public void restoreDataSource(JoinPoint point, TargetDataSource ano) {
-        logger.debug("清除数据源[{}]选择 > {}", ano.name(), point.getSignature());
+        logger.debug("清除数据源[{}]选择 > {}", ano.value(), point.getSignature());
         DynamicDataSource.clearDataSource();
     }
 

@@ -14,24 +14,28 @@ import java.util.Map;
  **/
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-    public static final String KEY_SYSTEM = "system";
-    public static final String KEY_TARGET = "target";
-
-    /** 数据源集合（父类的targetDataSources不可访问，所以记录下来，方便操作数据源选择） */
-    public static Map<Object, Object> dataSourceMap = new HashMap<>(2);
-
     /** 数据源控制 */
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
 
-    public DynamicDataSource(
-            DataSource systemDs,
-            DataSource targetDs
-    ) {
-        super.setDefaultTargetDataSource(systemDs);
-        dataSourceMap.put(KEY_SYSTEM, systemDs);
-        dataSourceMap.put(KEY_TARGET, targetDs);
+    /** 数据源集合（父类的targetDataSources不可访问，所以记录下来，方便操作数据源选择） */
+    public static Map<Object, Object> dataSourceMap = new HashMap<>(3);
+
+    /**
+     * 构造方法，需要传入默认的数据源
+     * */
+    public DynamicDataSource(DataSource defaultDataSource) {
+        super.setDefaultTargetDataSource(defaultDataSource);
+    }
+
+    /** 初始化设置 */
+    public void init(){
         super.setTargetDataSources(dataSourceMap);
         super.afterPropertiesSet();
+    }
+
+    /** 添加数据源 */
+    public void addDatasource(String dataSourceKey, DataSource dataSource){
+        this.dataSourceMap.put(dataSourceKey, dataSource);
     }
 
     @Override

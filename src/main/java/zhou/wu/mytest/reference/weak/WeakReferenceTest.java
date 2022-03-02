@@ -19,6 +19,7 @@ public class WeakReferenceTest {
         while((rf=rq.poll()) == null) {
             System.out.println("GC-----"+num);
             System.gc();
+
             num++;
         }
         System.out.println(rf);

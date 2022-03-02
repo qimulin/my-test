@@ -1,6 +1,6 @@
 package zhou.wu.multi.datasource.annotion;
 
-import zhou.wu.multi.datasource.config.DynamicDataSource;
+import zhou.wu.multi.datasource.config.DynamicDataSourceConstant;
 
 import java.lang.annotation.*;
 
@@ -15,5 +15,5 @@ public @interface TargetDataSource {
     /**
      * 留个name属性，看后面是否需要支持多目标数据源
      * */
-    String name() default DynamicDataSource.KEY_TARGET;;
+    String value() default DynamicDataSourceConstant.DS_TARGET;
 }
