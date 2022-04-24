@@ -23,6 +23,15 @@ top命令是Linux下常用的性能分析工具，能够实时显示系统中各
 > [root@jb51 Desktop]#history [-c]  
 > [root@jb51 Desktop]#history [-raw] histfiles
 
+### 根据进程名字模糊查询进程情况
+```shell
+ps -ef | grep java-demo
+```
+### 根据PID确定进程相关的端口号
+```shell
+netstat -antup | grep PID
+```
+
 ## 文件篇
 ### 进入目录
 > cd [目录名]
