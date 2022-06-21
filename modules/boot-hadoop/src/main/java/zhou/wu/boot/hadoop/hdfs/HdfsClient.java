@@ -1,4 +1,4 @@
-package zhou.wu.boot.hadoop;
+package zhou.wu.boot.hadoop.hdfs;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
