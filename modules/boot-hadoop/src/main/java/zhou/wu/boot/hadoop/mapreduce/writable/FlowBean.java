@@ -8,8 +8,12 @@ import java.io.IOException;
 /**
  * @author zhou.wu
  * @date 2022/6/21
+ * 步骤:
+ * 1 实现Writable接口
+ * 2 重写序列化和反序列化接口
+ * 3 重写空参构造
+ * 4 重写toString方法
  **/
-//1 继承Writable接口
 public class FlowBean implements Writable {
 
     private long upFlow; //上行流量
@@ -45,6 +49,7 @@ public class FlowBean implements Writable {
         this.sumFlow = sumFlow;
     }
 
+    // 累加求和
     public void setSumFlow() {
         this.sumFlow = this.upFlow + this.downFlow;
     }
@@ -64,7 +69,7 @@ public class FlowBean implements Writable {
         this.sumFlow = dataInput.readLong();
     }
 
-    //5 重写ToString
+    // 5 重写ToString，会影响展示
     @Override
     public String toString() {
         return upFlow + "\t" + downFlow + "\t" + sumFlow;

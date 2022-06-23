@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -20,6 +21,14 @@ public class WordCountDriver {
         // 1 获取配置信息以及获取job对象
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
+
+    /*    System.out.println("------ 设置InputFormat ------");
+        // 如果不设置InputFormat，它默认用的是TextInputFormat.class
+        // CombineTextInputFormat方便处理很多小文件，组合起来再分配MapTask,不至于开启过多的MapTask
+        job.setInputFormatClass(CombineTextInputFormat.class);
+        //虚拟存储切片最大值设置4m
+        CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);*/
+
 
         // 2 关联本Driver程序的jar
         job.setJarByClass(WordCountDriver.class);
