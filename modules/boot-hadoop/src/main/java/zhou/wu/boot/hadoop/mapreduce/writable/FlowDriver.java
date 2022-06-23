@@ -34,9 +34,25 @@ public class FlowDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FlowBean.class);
 
+        System.out.println("------ 设置NumReduceTask ------");
+        // numReduceTask会影响分区的个数
+        /**【注意】
+         * 不能小于设置的分区数Partitioner能生成的分区数n，不然实际生成的n个分区，会需要n个reduceTask；
+         * 但是1是例外
+         * {@link org.apache.hadoop.mapred.MapTask.NewOutputCollector}实例化的时候会在partitions<=1的时候自己new一个partitioner，且getPartition方法返回0
+         * this.partitioner = new Partitioner<K, V>() {
+         * 	public int getPartition(K key, V value, int numPartitions) {
+         * 		return NewOutputCollector.this.partitions - 1;
+         *        }
+         * };
+         */
+        job.setNumReduceTasks(1);
+        // 指定分区类
+        job.setPartitionerClass(ProvincePartitioner.class);
+
         //6 设置程序的输入输出路径
-        FileInputFormat.setInputPaths(job, new Path("D:\\inputflow"));
-        FileOutputFormat.setOutputPath(job, new Path("D:\\flowoutput"));
+        FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\input_phone_num"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output_phone_num1"));
 
         //7 提交Job
         boolean b = job.waitForCompletion(true);

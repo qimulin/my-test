@@ -44,9 +44,13 @@ public class WordCountDriver {
         //虚拟存储切片最大值设置4m
         CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);*/
 
+       /* System.out.println("------ 设置NumReduceTask ------");
+        // numReduceTask会影响分区的个数
+        job.setNumReduceTasks(2);*/
+
         // 6 设置输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\input"));
-        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output3"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output4"));
 
 //        FileInputFormat.setInputPaths(job, new Path(args[0]));
 //        FileOutputFormat.setOutputPath(job, new Path(args[1]));
