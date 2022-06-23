@@ -22,14 +22,6 @@ public class WordCountDriver {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
 
-    /*    System.out.println("------ 设置InputFormat ------");
-        // 如果不设置InputFormat，它默认用的是TextInputFormat.class
-        // CombineTextInputFormat方便处理很多小文件，组合起来再分配MapTask,不至于开启过多的MapTask
-        job.setInputFormatClass(CombineTextInputFormat.class);
-        //虚拟存储切片最大值设置4m
-        CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);*/
-
-
         // 2 关联本Driver程序的jar
         job.setJarByClass(WordCountDriver.class);
 
@@ -45,9 +37,16 @@ public class WordCountDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
+     /*   System.out.println("------ 设置InputFormat ------");
+        // 如果不设置InputFormat，它默认用的是TextInputFormat.class
+        // CombineTextInputFormat方便处理很多小文件，组合起来再分配MapTask,不至于开启过多的MapTask
+        job.setInputFormatClass(CombineTextInputFormat.class);
+        //虚拟存储切片最大值设置4m
+        CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);*/
+
         // 6 设置输入和输出路径
-        FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\word.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\output"));
+        FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\input"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output3"));
 
 //        FileInputFormat.setInputPaths(job, new Path(args[0]));
 //        FileOutputFormat.setOutputPath(job, new Path(args[1]));
