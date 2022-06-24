@@ -28,8 +28,8 @@ public class LogRecordWriter  extends RecordWriter<Text, NullWritable> {
             //获取文件系统对象
             FileSystem fs = FileSystem.get(job.getConfiguration());
             //用文件系统对象创建两个输出流对应不同的目录
-            focusOut = fs.create(new Path("d:/hadoop/focus.log"));
-            otherOut = fs.create(new Path("d:/hadoop/other.log"));
+            focusOut = fs.create(new Path("D:\\TempFile\\202206\\23\\output_format\\focus.log"));
+            otherOut = fs.create(new Path("D:\\TempFile\\202206\\23\\output_format\\other.log"));
         } catch (IOException e) {
             e.printStackTrace();
         }
