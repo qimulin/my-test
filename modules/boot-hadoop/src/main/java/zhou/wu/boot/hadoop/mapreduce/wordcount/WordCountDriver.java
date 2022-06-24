@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import zhou.wu.boot.hadoop.mapreduce.wordcount.combiner.WordCountCombiner;
 
 /**
  * @author zhou.wu
@@ -48,9 +49,15 @@ public class WordCountDriver {
         // numReduceTask会影响分区的个数
         job.setNumReduceTasks(2);*/
 
+       /* System.out.println("------ 设置自定义Combiner ------");
+        // 注意：如果没有reduce阶段（可以通过设置job.setNumReduceTasks(0)），那么也不会产生shuffle阶段，那么combiner的设置也就无效了，直接mapper阶段就出去了
+        job.setCombinerClass(WordCountCombiner.class);
+        // 注意：如果逻辑和Reducer相同，也可以直接用Reducer的逻辑进行聚合，表达例如下：
+        job.setCombinerClass(WordCountReducer.class);*/
+
         // 6 设置输入和输出路径
-        FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\input"));
-        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output4"));
+        FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\input_word_count"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output8"));
 
 //        FileInputFormat.setInputPaths(job, new Path(args[0]));
 //        FileOutputFormat.setOutputPath(job, new Path(args[1]));
