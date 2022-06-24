@@ -3,7 +3,6 @@ package zhou.wu.boot.hadoop.mapreduce.writable.comparable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import zhou.wu.boot.hadoop.mapreduce.writable.FlowBean;
 
 import java.io.IOException;
 

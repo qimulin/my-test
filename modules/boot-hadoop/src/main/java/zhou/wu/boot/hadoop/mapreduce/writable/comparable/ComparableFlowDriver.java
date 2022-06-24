@@ -35,9 +35,15 @@ public class ComparableFlowDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(ComparableFlowBean.class);
 
+        System.out.println("------ 设置NumReduceTask ------");
+        // numReduceTask会影响分区的个数，最好和定义的分区数一致
+        job.setNumReduceTasks(5);
+        // 指定分区类
+        job.setPartitionerClass(ProvincePartitioner2.class);
+
         //6 设置程序的输入输出路径
         FileInputFormat.setInputPaths(job, new Path("D:\\TempFile\\202206\\23\\output_phone_num_result"));  // 【注意】：这里是已经统计完的收集流量信息结果
-        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output_phone_num_c1"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\TempFile\\202206\\23\\output_phone_num_c2"));
 
         //7 提交Job
         boolean b = job.waitForCompletion(true);
