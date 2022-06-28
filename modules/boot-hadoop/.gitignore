@@ -38,4 +38,4 @@ build/
 .mvn/wrapper/maven-wrapper.jar
 
 ### resources目录下暂不做排除
-!**/src/main/resources/
+!**/src/main/resources/*.log
