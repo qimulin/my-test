@@ -36,3 +36,6 @@ build/
 .mvn/wrapper/*.properties
 .mvn/wrapper/*.java
 .mvn/wrapper/maven-wrapper.jar
+
+### resources目录下暂不做排除
+!**/src/main/resources
