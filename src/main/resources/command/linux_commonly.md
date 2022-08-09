@@ -16,6 +16,16 @@ top命令是Linux下常用的性能分析工具，能够实时显示系统中各
 > TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值  
 > COMMAND：进程启动命令名称  
 
+查看进程的所有线程情况
+```shell
+# -H： 设置线程模式
+# -p: 显示指定PID的进程
+top -H -p <进程id>
+# 结果里的
+# VIRT 表示 Virtual Memory 虚拟内存
+# RES 表示 Resident Memory 驻留内存
+# SHR 表示 shared memory 共享内存
+```
 
 调用历史命令
 > 注意：此markdown语法，两个空格即可换行
