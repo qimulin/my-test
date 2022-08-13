@@ -2,7 +2,7 @@ package zhou.wu.mytest.thread.suspend;
 
 /**
  * @author zhou.wu
- * @description: suspend方法
+ * @description suspend方法
  * suspend 美[səˈspend] 悬; 挂; 吊; 暂停; 中止; 使暂停发挥作用(或使用等); 延缓; 暂缓; 推迟; 使暂时停职；
  * resume 美[rɪˈzuːm] 重新开始; (中断后)继续; 配合suspend使用
  * Suspend和Resume为什么被弃用？
