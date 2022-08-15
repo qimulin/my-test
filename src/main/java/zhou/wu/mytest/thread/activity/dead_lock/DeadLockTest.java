@@ -7,10 +7,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author zhou.wu
  * @description: 死锁测试
+ * 死锁：有这样的情况：一个线程需要同时获取多把锁，这时就容易发生死锁
  * @date 2022/8/15
  **/
 @Slf4j
-public class DeadLockTest1 {
+public class DeadLockTest {
     public static void main(String[] args) {
         Object A = new Object();
         Object B = new Object();
