@@ -10,8 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * 相对于 synchronized 它具备如下特点
  * - 可中断，见 {@link InterruptiblyTest}
  * - 可以设置超时时间，见 {@link TimeoutTest}
- * - 可以设置为公平锁
- * - 支持多个条件变量（类似支持多个waitSet）
+ * - 可以设置为公平锁，见 {@link FairTest}
+ * - 支持多个条件变量（类似支持多个waitSet），见 {@link ConditionTest}
  * 与 synchronized 一样，都支持可重入
  *
  * 相同点：可重入
