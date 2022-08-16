@@ -22,7 +22,7 @@ public class TimeoutTest {
                 return;
             }*/
             try {
-                // 与lock方法的区别是，lock方法是获取不到锁会阻塞，
+                // 与lock方法的区别是，lock方法是获取不到锁会阻塞，像synchronized一样
                 // 而tryLock，会在规定的超时时间（若有设置超时时间）内都在尝试获取锁：如果获取到了，就返回true，没有就返回false
                 if (!lock.tryLock(1, TimeUnit.SECONDS)) {   // 带超时时间参数的tryLock
                     log.debug("获取等待 1s 后失败，返回");
