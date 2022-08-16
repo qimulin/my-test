@@ -11,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 public class InterruptRunningTest1 {
     public static void main(String[] args) throws Exception {
         Thread t2 = new Thread(()->{
-            // 用死循环，而不是用sleep，因为中断sleep后TIMED_WAITING状态下的线程和中断RUNNING状态的线程效果不一样
+            // 用死循环，而不是用sleep，因为中断sleep后TIMED_WAITING状态下的线程和中断RUNNING状态的线程效果不一样，它会情况打断状态
+            // sleep、wait、join 方法都会让线程进入非Blocked的阻塞状态，打断线程会清空打断状态（设置为false 而这个标识后面可以用来判断线程后面是否可以继续运行）
+            // 自解：因为这种都是线程非Blocked阻塞情况下，进行的打断，感觉是非正常情况，所以像sleep、wait、join这些方法都会需要处理这个InterruptedException异常
             while(true) {
                 Thread current = Thread.currentThread();
                 boolean interrupted = current.isInterrupted();
@@ -26,5 +28,6 @@ public class InterruptRunningTest1 {
         t2.start();
         Thread.sleep(500);
         t2.interrupt();
+
     }
 }
