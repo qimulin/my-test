@@ -1,4 +1,4 @@
-package zhou.wu.mytest.thread.synchronous_mode.guarded_suspension;
+package zhou.wu.mytest.thread.cp_pattern.synchronous.guarded_suspension;
 
 /**
  * @author zhou.wu

@@ -1,4 +1,4 @@
-package zhou.wu.mytest.thread.synchronous_mode.guarded_suspension.multi;
+package zhou.wu.mytest.thread.cp_pattern.synchronous.guarded_suspension.multi;
 
 import lombok.extern.slf4j.Slf4j;
 
