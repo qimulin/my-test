@@ -27,3 +27,7 @@ public class MonitorService {
         // 真正启动监控线程...
     }
 }
+/**
+ * 后记：
+ * 犹豫模式还常用于单例模式，见 {@link zhou.wu.mytest.thread.singleton.LazySingleton}
+ * */
