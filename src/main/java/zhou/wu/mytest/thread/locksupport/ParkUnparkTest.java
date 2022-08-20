@@ -1,10 +1,7 @@
 package zhou.wu.mytest.thread.locksupport;
 
 import lombok.extern.slf4j.Slf4j;
-import zhou.wu.mytest.thread.asynchronous_mode.producer_consumer.Downloader;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
