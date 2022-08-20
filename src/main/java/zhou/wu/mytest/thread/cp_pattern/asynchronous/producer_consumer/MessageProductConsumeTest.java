@@ -1,4 +1,4 @@
-package zhou.wu.mytest.thread.asynchronous_mode.producer_consumer;
+package zhou.wu.mytest.thread.cp_pattern.asynchronous.producer_consumer;
 
 import lombok.extern.slf4j.Slf4j;
 
