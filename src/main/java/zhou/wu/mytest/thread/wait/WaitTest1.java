@@ -2,7 +2,7 @@ package zhou.wu.mytest.thread.wait;
 
 /**
  * @author zhou.wu
- * @description suspend方法
+ * @description wait与suspend方法的区别
  * @date 2022/8/9
  **/
 public class WaitTest1 {

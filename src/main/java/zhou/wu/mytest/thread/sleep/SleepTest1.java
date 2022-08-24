@@ -8,6 +8,14 @@ import java.util.concurrent.TimeUnit;
  * @author zhou.wu
  * @description: Sleep方法测试
  * @date 2022/7/30
+ * sleep和wait的不同：
+ * - sleep是Thread的静态方法。wait是Object的方法
+ * - sleep想啥时候用就啥时候用。wait需要先获得对象锁，配合synchronized一起使用（wait方法必须执行在同步方法中执行，而sleep不需要）
+ * - sleep会让出CPU的使用权，但是不会释放对象锁。wait也会让出CPU的使用权，会释放对象锁（线程在同步方法中执行sleep方法时，不会释放monitor的锁。而wait方法则会释放monitor的锁）
+ * 相同点：
+ * - 它们的状态都是TIMED_WAITING
+ * - wait和sleep方法都可以使线程进入阻塞状态。
+ * - wait和sleep方法都是可中断方法，被中断后都会收到中断异常。
  **/
 @Slf4j
 public class SleepTest1 {
