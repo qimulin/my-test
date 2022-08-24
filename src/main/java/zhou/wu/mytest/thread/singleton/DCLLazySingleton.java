@@ -10,11 +10,19 @@ public class DCLLazySingleton {
     private DCLLazySingleton() { }
 
     // 用volatile修饰静态共享变量
+    // 问题1：解释为什么要加 volatile ?
+    /**
+     * 答：字节码层面看，防止构造方法赋值质量重排序，具体{@link DCLLazySingletonP1}最下面的内容讲解
+     * */
     private static volatile DCLLazySingleton INSTANCE = null;   // 很遗憾不能从字节码角度看不出加与不加volatile指令的区别
 
+    // 问题2：对比懒汉式, 说出这样做的意义。
+    // 答：不用每次调用都加synchronized锁，性能更优越些
     public static DCLLazySingleton getInstance() {
         if(INSTANCE == null) {
             synchronized(DCLLazySingleton.class) {
+                // 问题3：为什么还要在这里加为空判断, 之前不是判断过了吗
+                // 答：防止首次创建INSTANCE对象的时候多个线程并发的问题，不要被重复创建
                 if (INSTANCE == null) {
                     INSTANCE = new DCLLazySingleton();
                 }
