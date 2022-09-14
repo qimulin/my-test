@@ -33,6 +33,7 @@ public class HdfsStoreTest {
         Dataset<Row> rowDataset = SparkTestCommon.queryTableData(sparkSession, tableName);
         Config writerConfig = buildHdfsWriterConfig();
         outputImpl(sparkSession, writerConfig, rowDataset, "hdfs://", fileName);
+        sparkSession.stop();
     }
 
     private static Config buildHdfsWriterConfig(){

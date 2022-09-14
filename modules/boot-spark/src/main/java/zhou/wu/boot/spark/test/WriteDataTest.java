@@ -42,6 +42,7 @@ public class WriteDataTest {
         // 写入数据
         writeRowListBySchema(sparkSession, config, schema, dataList);
 
+        sparkSession.stop();
     }
 
     /**
