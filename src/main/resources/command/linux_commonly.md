@@ -43,6 +43,39 @@ netstat -antup | grep PID
 ```
 
 ## 文件篇
+### 文件权限相关
+- chmod命令(”Change mode“) 改变文件或目录权限\
+-c	若该文件权限确实已经更改，才显示其更改动作\
+-f	若该文件权限无法被更改也不显示错误讯息\
+-v	显示权限变更的详细资料\
+-R	对目前目录下的所有文件与子目录进行相同的权限变更(即以递回的方式逐个变更)
+```shell
+# 设定某个文件的权限为775：
+chmod 775 anaconda-ks.cfg
+# 设定某个文件让任何人都可以读取：
+chmod a+r anaconda-ks.cfg
+# 设定某个目录及其内子文件任何人都可以读取和读取
+chmod -R a+r Documents
+```
+- chown命令(”Change owner“) 改变文件或目录的用户和用户组\
+-R	对目前目录下的所有文件与目录进行相同的变更\
+-c	显示所属信息变更信息\
+-f	若该文件拥有者无法被更改也不要显示错误\
+-h	只对于链接文件进行变更，而非真正指向的文件\
+-v	显示拥有者变更的详细资料\
+--help	显示辅助说明\
+--version	显示版本
+```shell
+# 改变指定文件的所属主与所属组：
+chown root:root /etc/fstab
+# 改变指定文件的所属主与所属组，并显示过程：
+chown -c linuxprobe:linuxprobe /etc/fstab
+# changed ownership of '/etc/fstab' from root:root to linuxprobe:linuxprobe
+# 改变指定目录及其内所有子文件的所属主与所属组：
+chown -R root:root /etc
+```
+
+
 ### 进入目录
 > cd [目录名]
 > 目录名有几个bai符号有特殊的含义du，“..”代表上一级目录、“~”代表HOME目录、“-”代表前一目录
