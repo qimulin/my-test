@@ -262,6 +262,19 @@ jstack vmid
         at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
         at java.lang.Thread.run(Thread.java:750)
   ```
+  又例如：
+  ```text
+  "t2" #15 prio=5 os_prio=0 tid=0x00000000200c5800 nid=0x4228 waiting for monitor entry [0x00000000203ef000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+        at zhou.wu.mytest.thread.activity.dead_lock.DeadLockTest.lambda$main$1(DeadLockTest1.java:40)
+        // <0x000000076c28ecb0> 被锁对象的内存地址
+        - waiting to lock <0x000000076c28ecb0> (a java.lang.Object)
+        // <0x000000076c28ecc0> 自己锁住的对象内存地址
+        - locked <0x000000076c28ecc0> (a java.lang.Object)
+        at zhou.wu.mytest.thread.activity.dead_lock.DeadLockTest$$Lambda$2/798244209.run(Unknown Source)
+        at java.lang.Thread.run(Thread.java:748)     
+  ```
+  当然，还可以用图形化工具jconsole检测死锁，步骤：工具栏【线程】->按钮【检测死锁】
 
 从JDK 5起，java.lang.Thread类新增了⼀个getAllStackTraces()⽅法⽤于获取虚拟机中所有线程的 StackTraceElement对象。
 使⽤这个⽅法可以通过简单的⼏⾏代码完成jstack的⼤部分功能，在实际项⽬中不妨调⽤这个⽅法做个管理员页⾯，可以随时使⽤浏览器来查看线程堆栈。
