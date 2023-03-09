@@ -186,6 +186,18 @@
             <version>1.9.3</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 反应式编程reactor相关 -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+<!--            <scope>test</scope>-->
+        </dependency>
+
     </dependencies>
 
     <!-- 发布相关 -->
@@ -220,12 +232,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>cn.smallbun.screw</groupId>
                 <artifactId>screw-maven-plugin</artifactId>
                 <version>1.0.5</version>
                 <dependencies>
-                    <!-- 数据库连接 -->
+                    &lt;!&ndash; 数据库连接 &ndash;&gt;
                     <dependency>
                         <groupId>com.zaxxer</groupId>
                         <artifactId>HikariCP</artifactId>
@@ -238,19 +250,19 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!-- 数据库相关配置 -->
+                    &lt;!&ndash; 数据库相关配置 &ndash;&gt;
                     <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
                     <jdbcUrl>jdbc:mysql://47.110.139.43:3306/nbdsj</jdbcUrl>
                     <username>root</username>
                     <password>HZdsj12345</password>
-                    <!-- screw 配置 -->
+                    &lt;!&ndash; screw 配置 &ndash;&gt;
                     <fileType>HTML</fileType>
-                    <title>数据库文档</title> <!--标题-->
-                    <fileName>测试文档名称</fileName> <!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称-->
-                    <description>数据库文档生成</description> <!--描述-->
-                    <version>${project.version}</version> <!--版本-->
-                    <openOutputDir>true</openOutputDir> <!--打开文件输出目录-->
-                    <produceType>freemarker</produceType> <!--生成模板-->
+                    <title>数据库文档</title> &lt;!&ndash;标题&ndash;&gt;
+                    <fileName>测试文档名称</fileName> &lt;!&ndash;文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称&ndash;&gt;
+                    <description>数据库文档生成</description> &lt;!&ndash;描述&ndash;&gt;
+                    <version>${project.version}</version> &lt;!&ndash;版本&ndash;&gt;
+                    <openOutputDir>true</openOutputDir> &lt;!&ndash;打开文件输出目录&ndash;&gt;
+                    <produceType>freemarker</produceType> &lt;!&ndash;生成模板&ndash;&gt;
                 </configuration>
                 <executions>
                     <execution>
@@ -260,7 +272,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
         <!--<resources>
             <resource>
