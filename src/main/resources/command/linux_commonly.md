@@ -1,5 +1,8 @@
 # Linux常用命令个人整理
-
+```shell
+# 清屏命令
+clear
+```
 ## 资源使用篇
 top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况
 > top  
@@ -130,6 +133,63 @@ lineNo前面带-号表示倒着数第LineNo行；
 > cat -n test.log |grep "debug"   查询关键字的日志
 
 > cat filename 一次显示整个文件
+## 用户相关
+### 用户基本操作
+- adduser命令 – 创建用户账户
+```shell
+# 创建指定名称的用户账户develop
+adduser develop
+# 创建指定名称的用户账户，并设置账户有效期
+adduser -e 18/05/2023 develop
+# 创建指定名称的用户账户，并添加扩展组
+adduser -G root develop
+# 创建指定名称的用户账户，并设置家目录名称
+adduser -d /home/linux develop
+# passwd命令修改密码信息，回车后会提醒输入密码和确认密码
+sudo passwd develop
+```
+- lslogins命令 – 显示系统中现有用户的相关信息
+```shell
+# 展示出系统中现有用户的相关信息
+lslogins -u
+```
+- id命令 – 显示用户与用户组信息\
+  -g	显示用户所属群组的ID\
+  -G	显示用户扩展群组的ID\
+  -n	显示用户所属群组或扩展群组的名称\
+  -r	显示实际ID\
+  -u	显示用户ID\
+  --help	显示帮助\
+  --version	显示版本信息
+```shell
+# 显示当前用户的身份信息
+id
+# 以下为显示内容
+uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+# 显示当前用户的所属群组名称
+id -gn
+```
+- usermod命令 – 修改用户账号信息\
+  -c<备注>	修改用户账号的备注文字\
+  -d<登入目录>	修改用户登入时的家目录\
+  -e<有效期限>	修改账号的有效期限\
+  -f<缓冲天数>	修改在密码过期后多少天即关闭该账号\
+  -g<群组>	修改用户所属的群组\
+  -G<群组>	修改用户所属的附加群组\
+  -l<账号名称>	修改用户账号名称\
+  -L	锁定用户密码，使密码无效\
+  -s<shell>	修改用户登入后所使用的shell\
+  -u<uid>	修改用户ID\
+  -U	解除密码锁定
+> 语法格式：usermod [参数] 用户名
+```shell
+# 修改指定用户的家目录路径
+usermod -d /home develop
+# 修改指定用户的名称为 develop2
+usermod -l develop develop2
+# 修改用户组
+usermod -g developgroup develop
+```
 
 ## 网络及应用
 ### ss命令 – 显示活动套接字信息
