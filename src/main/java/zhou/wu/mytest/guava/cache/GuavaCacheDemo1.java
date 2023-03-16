@@ -57,36 +57,46 @@ public class GuavaCacheDemo1 {
         // ----- 2 ------
 //        DemoClient lisi = new DemoClient(key2);
 //        clientCache.put(lisi.getId(), lisi);
-        // 小于过期时间，再去读写，配合expireAfterAccess方法
-        // 保持获取，刷新访问周期
-        Thread t1 = new Thread(() -> {
-            int i=3;
-            while(i>0){
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                log.info("keep client, i:{}, id: {}", i, key1);
-                clientCache.getIfPresent(key1);
-                log.info("clientCache size: {}", clientCache.size());
-                i--;
-            }
-        });
-        t1.start();
+//        // 小于过期时间，再去读写，配合expireAfterAccess方法
+//        // 保持获取，刷新访问周期
+//        Thread t1 = new Thread(() -> {
+//            int i=3;
+//            while(i>0){
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                log.info("keep client, i:{}, id: {}", i, key1);
+//                clientCache.getIfPresent(key1);
+//                log.info("clientCache size: {}", clientCache.size());
+//                i--;
+//            }
+//        });
+//        t1.start();
+//
+//        // t1线程应该循环结束了
+//        TimeUnit.SECONDS.sleep(30);
+//        // 2-1 访问过期后再去读（触发），则已经读不到
+//        log.info("getIfPresent 1");
+//        DemoClient ifPresent = clientCache.getIfPresent(key1);
+//        System.out.println(ifPresent);
+//        // 2-2 访问过期后再去读，则已经读不到
+//        log.info("clientCache size: {}", clientCache.size());
+//        log.info("get from cache");
+//        getDemoClientFromClientCache(clientCache, key1);
 
-        // t1线程应该循环结束了
-        TimeUnit.SECONDS.sleep(30);
-        // 2-1 访问过期后再去读（触发），则已经读不到
-        log.info("getIfPresent 1");
-        DemoClient ifPresent = clientCache.getIfPresent(key1);
-        System.out.println(ifPresent);
-        // 2-2 访问过期后再去读，则已经读不到
-        log.info("clientCache size: {}", clientCache.size());
-        log.info("get from cache");
-        getDemoClientFromClientCache(clientCache, key1);
-
-        log.info("clientCache size: {}", clientCache.size());
+        // ----- 3 ----- 没过期前去get是否能维持，不触发OnRemoval操作
+        TimeUnit.SECONDS.sleep(5);
+        log.info("3-1 get from cache client");
+        System.out.println(getDemoClientFromClientCache(clientCache, key1));
+        TimeUnit.SECONDS.sleep(5);
+        log.info("3-2 get from cache client");
+        System.out.println(getDemoClientFromClientCache(clientCache, key1));
+        // 等待更长，过期
+        TimeUnit.SECONDS.sleep(10);
+        log.info("3-2 get from cache client");
+        System.out.println(getDemoClientFromClientCache(clientCache, key1));
 
         TimeUnit.SECONDS.sleep(30);
     }
@@ -94,8 +104,8 @@ public class GuavaCacheDemo1 {
     /**
      * 获取一个DemoClient
      * */
-    private static void getDemoClientFromClientCache(Cache<String, DemoClient> clientCache, String key) throws ExecutionException {
-        clientCache.get(key, new Callable<DemoClient>() {
+    private static DemoClient getDemoClientFromClientCache(Cache<String, DemoClient> clientCache, String key) throws ExecutionException {
+        return clientCache.get(key, new Callable<DemoClient>() {
             @Override
             public DemoClient call() throws Exception {
                 return new DemoClient(key);
