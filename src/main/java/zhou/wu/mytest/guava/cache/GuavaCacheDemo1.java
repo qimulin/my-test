@@ -95,7 +95,7 @@ public class GuavaCacheDemo1 {
         System.out.println(getDemoClientFromClientCache(clientCache, key1));
         // 等待更长，过期
         TimeUnit.SECONDS.sleep(10);
-        log.info("3-2 get from cache client");
+        log.info("3-3 get from cache client");
         System.out.println(getDemoClientFromClientCache(clientCache, key1));
 
         TimeUnit.SECONDS.sleep(30);
