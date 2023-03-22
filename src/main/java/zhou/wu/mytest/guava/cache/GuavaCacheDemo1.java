@@ -95,8 +95,9 @@ public class GuavaCacheDemo1 {
         System.out.println(getDemoClientFromClientCache(clientCache, key1));
         // 等待更长，过期
         TimeUnit.SECONDS.sleep(10);
+        // 原key对应缓存失效后，get其他key也会触发原key缓存的移除
         log.info("3-3 get from cache client");
-        System.out.println(getDemoClientFromClientCache(clientCache, key1));
+        System.out.println(getDemoClientFromClientCache(clientCache, key2));
 
         TimeUnit.SECONDS.sleep(30);
     }
