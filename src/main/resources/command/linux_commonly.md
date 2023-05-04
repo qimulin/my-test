@@ -1,5 +1,9 @@
 # Linux常用命令个人整理
 ```shell
+# 查看CentOS内核版本
+uname -r
+# 使用root权限登录系统，更新yum包更新到最新版本
+sudo yum update -y
 # 清屏命令
 clear
 ```
@@ -35,6 +39,7 @@ top -H -p <进程id>
 > history [n]  
 > [root@jb51 Desktop]#history [-c]  
 > [root@jb51 Desktop]#history [-raw] histfiles
+### 磁盘占用排查
 
 ### 根据进程名字模糊查询进程情况
 ```shell
@@ -100,6 +105,35 @@ chown -R root:root /etc
 >cp -r dir1/. dir2 表示将dir1下的文件复制到dir2,不包括dir1目录
 
 说明：cp参数 -i：询问，如果目标文件已经存在，则会询问是否覆盖；
+### 删除
+rm命令来自英文单词“remove”的缩写，中文译为“消除”，其功能是用于删除文件或目录，一次可以删除多个文件，或递归删除目录及其内的所有子文件。 \
+
+rm也是一个很危险的命令，使用的时候要特别当心，尤其对于新手更要格外注意，如执行rm -rf /*命令则会清空系统中所有的文件，甚至无法恢复回来。
+所以我们在执行之前一定要再次确认下在哪个目录中，到底要删除什么文件，考虑好后再敲击回车键，时刻保持清醒的头脑
+
+```shell
+# -d 仅删除无子文件的空目录 
+# -f 强制删除文件而不询问 
+# -i 删除文件前询问用户是否确认 
+# -r 递归删除目录及其内全部子文件 
+# -v 显示执行过程详细信息 
+# --help 显示帮助信息 
+# --version 显示版本信息
+
+# 删除文件默认会进行二次确认，敲击y进行确认
+[root@linuxcool ~]# rm File.cfg 
+rm: remove regular file 'File.cfg'? y
+# 强制删除文件而无需二次确认： 
+[root@linuxcool ~]# rm -f File.cfg 
+# 删除指定目录及其内的全部子文件，一并都强制删除： 
+[root@linuxcool ~]# rm -rf Dir 
+# 删除指定目录及其内的全部子文件，但不删除指定目录： 
+[root@linuxcool ~]# rm -rf Dir/* 
+# 强制删除当前工作目录内的所有以.txt为后缀的文件：
+[root@linuxcool ~]# rm -f *.txt 
+#【离职（坐牢）小妙招，谨慎！！！】强制清空服务器系统内的所有文件：
+ [root@linuxcool ~]# rm -rf /*
+```
 ### 查询
 某目录下搜索某个文件夹
 >find /目录 -name 'hs_err_pid6.log' -ls
