@@ -169,6 +169,7 @@ jmap工具主要选项
     </tr>
 </table>
 
+### -dump
 ```shell
 # 使⽤jmap⽣成dump⽂件
 # format=b表示以hprof二进制格式转储Java堆的内存
@@ -176,6 +177,69 @@ jmap工具主要选项
 jmap -dump:format=b,file=/home/develop/dump_demo vmid
 # Dumping heap to C:\Users\IcyFenix\eclipse.bin …
 # Heap dump file created
+```
+### -heap
+```shell
+# 查看java 堆（heap）使用情况
+jmap -heap [pid]
+```
+结果示例解读(Java8)：
+```
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.181-b13
+
+using parallel threads in the new generation.
+using thread-local object allocation.
+Concurrent Mark-Sweep GC  // GC 方式
+
+Heap Configuration: // 堆内存初始化配置
+   MinHeapFreeRatio         = 40  // 对应jvm启动参数-XX:MinHeapFreeRatio设置JVM堆最小空闲比率(default 40)
+   MaxHeapFreeRatio         = 70  // 对应jvm启动参数 -XX:MaxHeapFreeRatio设置JVM堆最大空闲比率(default 70) 
+   MaxHeapSize              = 4294967296 (4096.0MB) // 对应jvm启动参数-XX:MaxHeapSize=设置JVM堆的最大大小
+   NewSize                  = 2147483648 (2048.0MB) // 对应jvm启动参数-XX:NewSize=设置JVM堆的‘新生代’的默认大小
+   MaxNewSize               = 2147483648 (2048.0MB) // 对应jvm启动参数-XX:MaxNewSize=设置JVM堆的‘新生代’的最大大小
+   OldSize                  = 2147483648 (2048.0MB) // 对应jvm启动参数-XX:OldSize=<value>:设置JVM堆的‘老生代’的大小
+   NewRatio                 = 2 // 对应jvm启动参数-XX:NewRatio=:‘新生代’和‘老生代’的大小比率 
+   SurvivorRatio            = 8 // 对应jvm启动参数-XX:SurvivorRatio=设置年轻代中Eden区与Survivor区的大小比值
+   MetaspaceSize            = 134217728 (128.0MB) // 对应jvm启动参数-XX:MetaspaceSize=<value>:设置元空间初始大小
+   CompressedClassSpaceSize = 528482304 (504.0MB)
+   MaxMetaspaceSize         = 536870912 (512.0MB) // 对应jvm启动参数-XX:MaxMetaspaceSize=设置元空间最大大小
+   G1HeapRegionSize         = 0 (0.0MB)
+
+Heap Usage: // 堆内存分步 
+New Generation (Eden + 1 Survivor Space): // 新生代内存分布（Eden区+FROM区的空间[因为新生代的TO区是需要保持始终是空的，所以不参与新生代总量的计算]）
+   capacity = 1932787712 (1843.25MB)
+   used     = 1659739224 (1582.8506698608398MB)
+   free     = 273048488 (260.39933013916016MB)
+   85.87281540001844% used
+Eden Space: // Eden区内存分布
+   capacity = 1718091776 (1638.5MB) // Eden区总容量 
+   used     = 1655535712 (1578.8418884277344MB) // Eden区已使用
+   free     = 62556064 (59.658111572265625MB) // Eden区剩余容量
+   96.35898006882724% used  // Eden区使用比率 
+From Space: // 其中一个Survivor区的内存分布
+   capacity = 214695936 (204.75MB)
+   used     = 4203512 (4.008781433105469MB)
+   free     = 210492424 (200.74121856689453MB)
+   1.9578908098195207% used
+To Space: // 另一个Survivor区的内存分布 
+   capacity = 214695936 (204.75MB)
+   used     = 0 (0.0MB)
+   free     = 214695936 (204.75MB)
+   0.0% used
+concurrent mark-sweep generation:
+   capacity = 2147483648 (2048.0MB)
+   used     = 556202976 (530.4364929199219MB)
+   free     = 1591280672 (1517.5635070800781MB)
+   25.90021938085556% used
+
+38755 interned Strings occupying 4107448 bytes.
+```
+### -histo
+```shell
+# 将堆中对象统计信息输出到文件/tmp/hi.txt中
+jmap -histo [pid] >/tmp/hi.txt
 ```
 
 ## jhat：虚拟机堆转储快照分析⼯具
