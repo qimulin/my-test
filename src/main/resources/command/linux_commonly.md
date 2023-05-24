@@ -1,4 +1,4 @@
-# Linux常用命令个人整理
+  # Linux常用命令个人整理
 ```shell
 # 查看CentOS内核版本
 uname -r
@@ -75,12 +75,54 @@ tmpfs 197M 3.5M 194M 2% /run/user/0
 Filesystem Size Used Avail Use% Mounted on 
 /dev/sda1 1014M 152M 863M 15% /boot
 ```
-显示系统中所有文件系统格式为XFS的磁盘分区使用量情况： 
+（不甚理解）显示系统中所有文件系统格式为XFS的磁盘分区使用量情况：
 ```
 [root@linuxcool ~]# df -t xfs 
 Filesystem 1K-blocks Used Available Use% Mounted on 
 /dev/mapper/rhel-root 17811456 4041320 13770136 23% /
 /dev/sda1 1038336 155556 882780 15% /boot
+```
+确定文件夹后，可以再更进一步确定占磁盘空间大的目录或文件，通过du命令。\
+du命令来自英文词组“Disk Usage”的缩写，其功能是用于查看文件或目录的大小。人们经常会把df和du命令混淆，df是用于查看磁盘或分区使用情况的命令，而du命令则是用于按照指定容量单位来查看文件或目录在磁盘中的占用情况。
+> 语法格式：du [参数] 文件名
+```
+常用参数：
+-a 显示目录中所有文件大小 
+-b 使用Byte为单位显示文件大小 
+-c 显示占用磁盘空间大小总和 
+-d 表示迭代深度
+-D 显示符号链接对应源文件大小 
+-g 使用GB为单位显示文件大小 
+-h 使用易读方式显示文件大小 
+-k 使用KB为单位显示文件大小 
+-m 使用MB为单位显示文件大小 
+-P 不显示符号链接对应源文件大小 
+-s 显示子目录总大小 
+-S 不显示子目录大小 
+-X 排除指定文件 
+--help 显示帮助信息 
+--version 显示版本信息
+```
+例如想要查看/data/logs目录下日志文件和目录占用情况，则可以的-d参数，或--max-depth（设置查询的目录深度）
+```
+# 当前目录深度是0 1表示最深迭代到当前目录的下一个深度,等价的命令是du --max-depth 1 
+[root@linuxcool ~]# du -h -d 1 /data
+272K    /data/zookeeper
+140K    /data/kafka
+495M    /data/es_data
+14G     /data/logs
+14G     /data
+```
+其他示例：\
+以易读的容量格式显示指定目录内总文件的大小信息：
+```
+[root@linuxcool ~]# du -sh /Dir 
+29M /Dir
+```
+显示指定文件的大小信息（默认单位为K）：
+```
+[root@linuxcool ~]# du File.cfg 
+# 4 File.cfg
 ```
 
 ### 根据进程名字模糊查询进程情况
