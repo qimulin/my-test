@@ -2,13 +2,18 @@ package zhou.wu.bootcurator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.data.Stat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author zhou.wu
@@ -71,6 +76,55 @@ public class ZkCuratorTest {
 //        zkClient.create().forPath("/03/001");
         // 可改为添加creatingParentsIfNeeded（如果父节点不存在，则创建父节点），如下：
         zkClient.create().creatingParentsIfNeeded().forPath("/03/001");
+    }
+
+    @Test
+    public void testQuery() throws Exception {
+        // 查询子节点
+        List<String> list = zkClient.getChildren().forPath("/03");
+        System.out.println(Arrays.toString(list.toArray()));
+        // 获取节点信息
+        // Stat承载节点状态信息
+        Stat stat = new Stat();
+        System.out.println(stat);
+        // storingStatIn将状态信息放到stat对象中
+        zkClient.getData().storingStatIn(stat).forPath("/03");
+        System.out.println(stat);
+    }
+
+    @Test
+    public void testSet() throws Exception {
+        // 修改数据
+        zkClient.setData().forPath("/03", "content 03".getBytes(StandardCharsets.UTF_8));
+        System.out.println(new String(zkClient.getData().forPath("/03")));
+        // 根据版本进行修改（类似乐观锁）
+        // 查询版本
+        Stat stat = new Stat();
+        zkClient.getData().storingStatIn(stat).forPath("/03");
+        int version = stat.getVersion();
+        System.out.println(version);
+        // withVersion，version不对即会失败
+        zkClient.setData().withVersion(version).forPath("/03", "content 03 version".getBytes(StandardCharsets.UTF_8));
+        System.out.println(new String(zkClient.getData().forPath("/03")));
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        // 删除单个节点（不允许带有子节点）
+//        zkClient.delete().forPath("/03/002");
+        // 删除带有子节点的节点deletingChildrenIfNeeded
+//        zkClient.delete().deletingChildrenIfNeeded().forPath("/03");
+        // 必须成功的删除 guaranteed 必然的 美[ˌɡærənˈtiːd] 内部有重试机制，可以解决因网络抖动原因导致的节点没删除成功
+//        zkClient.delete().guaranteed().forPath("/03/002");
+        // 带有删除后回调的删除
+        BackgroundCallback backgroundCallback = new BackgroundCallback() {
+            @Override
+            public void processResult(CuratorFramework curatorFramework, CuratorEvent curatorEvent) throws Exception {
+                System.out.println("backgroundCallback");
+                System.out.println(curatorEvent);
+            }
+        };
+        zkClient.delete().guaranteed().inBackground(backgroundCallback).forPath("/03/002");
     }
 
     @After
