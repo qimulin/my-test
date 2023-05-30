@@ -4,8 +4,9 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.BackgroundCallback;
 import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 import org.junit.After;
 import org.junit.Before;
@@ -17,10 +18,10 @@ import java.util.List;
 
 /**
  * @author zhou.wu
- * @description ZkCurator测试
+ * @description ZkCurator 增删改查 测试
  * @date 2023/1/9
  **/
-public class ZkCuratorTest {
+public class ZkCuratorCurdTest {
     public static final String ZK_ADDRESS = "localhost:2181";
 
     public static final String COMMON_PATH = "lxc";
@@ -125,6 +126,32 @@ public class ZkCuratorTest {
             }
         };
         zkClient.delete().guaranteed().inBackground(backgroundCallback).forPath("/03/002");
+    }
+
+    /**
+     * Curator引入了Cache来实现Zookeeper服务端事件的监听
+     * Zookeeper提供了三种Watcher
+     * - NodeCache：只是监听某一特定的节点
+     * - PathChildrenCache：监听一个Znode的子节点
+     * - TreeCache：可以监控整个树上的所有节点，类似于PathChildrenCache和NodeCache的组合
+     * */
+    @Test
+    public void testWatcherNodeCache() throws Exception {
+        // 1、创建NodeCache对象，也可以使用两个参数的构造。 dataIsCompressed：数据是否压缩，压缩的话传输会变快，但是读取的时候需要解压缩
+        NodeCache nodeCache = new NodeCache(zkClient, "/03", false);
+        // 2、注册监听
+        // 获取可用的监听
+        nodeCache.getListenable()
+            // 添加监听器
+            .addListener(
+                    new NodeCacheListener() {
+                         @Override
+                         public void nodeChanged() throws Exception {
+                             System.out.println("nodeChanged");
+                         }
+                     }
+        );
+        // 3、开启监听
     }
 
     @After
