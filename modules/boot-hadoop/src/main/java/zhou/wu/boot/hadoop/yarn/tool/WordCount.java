@@ -14,6 +14,9 @@ import org.apache.hadoop.util.Tool;
 
 import java.io.IOException;
 
+/**
+ * 可支持需求：自己写的程序也可以动态修改服务参数。编写Yarn的Tool接口
+ * */
 public class WordCount implements Tool {
 
     private Configuration conf;

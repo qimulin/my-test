@@ -55,6 +55,13 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
         </dependency>
+
+        <!-- Hive相关 做UDF函数用 -->
+       <!-- <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>1.1.1</version>
+        </dependency>-->
     </dependencies>
 
 <!--    <build>-->
