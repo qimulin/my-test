@@ -48,7 +48,7 @@ public class ZkCuratorWatcherTest {
      * Zookeeper提供了三种Watcher
      * - NodeCache：只是监听某一特定的节点
      * - PathChildrenCache：监听一个Znode的子节点
-     * - TreeCache：可以监控整个树上的所有节点，类似于PathChildrenCache和NodeCache的组合
+     * - TreeCache：可以监控指定节点为根节点下整个树上的所有节点（子、孙以及下面的所有层级节点都可以被监听）
      * */
     @Test
     public void testWatcherNodeCache() throws Exception {
@@ -88,7 +88,7 @@ public class ZkCuratorWatcherTest {
 
     @Test
     public void testWatcherPathChildrenCache() throws Exception {
-        // 1、创建NodeCache对象
+        // 1、创建PathChildrenCache对象
         PathChildrenCache cache = new PathChildrenCache(zkClient, "/03", true);
         // 2、绑定监听器
         // 获取可用的监听
@@ -123,7 +123,7 @@ public class ZkCuratorWatcherTest {
 
     @Test
     public void testWatcherTreeCache() throws Exception {
-        // 1、创建NodeCache对象
+        // 1、创建TreeCache对象
         TreeCache cache= new TreeCache(zkClient, "/03");
         // 2、绑定监听器
         // 获取可用的监听
@@ -134,8 +134,8 @@ public class ZkCuratorWatcherTest {
                             @Override
                             public void childEvent(CuratorFramework curatorFramework, TreeCacheEvent treeCacheEvent) throws Exception {
                                 System.out.println("childEvent");
+                                System.out.println(treeCacheEvent);
                             }
-
                         }
                 );
         // 3、开启监听
