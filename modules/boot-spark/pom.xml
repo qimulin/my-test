@@ -15,7 +15,7 @@
     <description>Boot集成Spark</description>
 
     <properties>
-        <jackson.version>2.12.0</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <scope>compile</scope>
         <!-- 数据开发版本 -->
         <scala.binary.version>2.11</scala.binary.version>
