@@ -19,6 +19,7 @@
         <swagger.version>2.9.2</swagger.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
         <aspectj.version>1.5.4</aspectj.version>
+        <fastjson.version>1.2.62</fastjson.version>
     </properties>
 
     <!-- dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖 -->
@@ -69,9 +70,9 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <!--            <version>1.2.62</version>-->
                 <!-- 带反序列化漏洞的版本 -->
-                <version>1.2.24</version>
+                <!--            <version>1.2.24</version>-->
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
@@ -198,6 +199,14 @@
 <!--            <scope>test</scope>-->
         </dependency>
 
+        <!-- mockito相关 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- 发布相关 -->
@@ -232,12 +241,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>cn.smallbun.screw</groupId>
                 <artifactId>screw-maven-plugin</artifactId>
                 <version>1.0.5</version>
                 <dependencies>
-                    &lt;!&ndash; 数据库连接 &ndash;&gt;
+                    <!-- 数据库连接 -->
                     <dependency>
                         <groupId>com.zaxxer</groupId>
                         <artifactId>HikariCP</artifactId>
@@ -250,19 +259,19 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    &lt;!&ndash; 数据库相关配置 &ndash;&gt;
+                    <!-- 数据库相关配置 -->
                     <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
-                    <jdbcUrl>jdbc:mysql://47.110.139.43:3306/nbdsj</jdbcUrl>
+                    <jdbcUrl>jdbc:mysql://dev-node1:3306/dolphinscheduler</jdbcUrl>
                     <username>root</username>
-                    <password>HZdsj12345</password>
-                    &lt;!&ndash; screw 配置 &ndash;&gt;
-                    <fileType>HTML</fileType>
-                    <title>数据库文档</title> &lt;!&ndash;标题&ndash;&gt;
-                    <fileName>测试文档名称</fileName> &lt;!&ndash;文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称&ndash;&gt;
-                    <description>数据库文档生成</description> &lt;!&ndash;描述&ndash;&gt;
-                    <version>${project.version}</version> &lt;!&ndash;版本&ndash;&gt;
-                    <openOutputDir>true</openOutputDir> &lt;!&ndash;打开文件输出目录&ndash;&gt;
-                    <produceType>freemarker</produceType> &lt;!&ndash;生成模板&ndash;&gt;
+                    <password>citydo!@#123CITYDO</password>
+                    <!-- screw 配置 -->
+                    <fileType>WORD</fileType>
+                    <title>数据库文档</title> <!--标题-->
+                    <fileName>数据开发数据库文档</fileName> <!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称-->
+                    <description>数据库文档生成</description> <!--描述-->
+                    <version>${project.version}</version> <!--版本-->
+                    <openOutputDir>true</openOutputDir> <!--打开文件输出目录-->
+                    <produceType>freemarker</produceType> <!--生成模板-->
                 </configuration>
                 <executions>
                     <execution>
@@ -272,7 +281,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
         <!--<resources>
             <resource>

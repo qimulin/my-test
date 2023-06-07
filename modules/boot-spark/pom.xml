@@ -17,8 +17,12 @@
     <properties>
         <jackson.version>2.12.0</jackson.version>
         <scope>compile</scope>
-        <scala.binary.version>2.12</scala.binary.version>
-        <spark.version>3.0.0</spark.version>
+        <!-- 数据开发版本 -->
+        <scala.binary.version>2.11</scala.binary.version>
+        <spark.version>2.4.0</spark.version>
+        <!-- 虚拟机中的版本 -->
+<!--        <scala.binary.version>2.12</scala.binary.version>-->
+<!--        <spark.version>3.0.0</spark.version>-->
     </properties>
 
     <dependencies>
@@ -79,7 +83,8 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
-            <scope>${scope}</scope>
+<!--            <scope>${scope}</scope>-->
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -122,6 +127,54 @@
             <version>3.0.8</version>
         </dependency>
     </dependencies>
+
+  <!--  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    &lt;!&ndash; 最终打包名字格式 &ndash;&gt;
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    &lt;!&ndash;<archive>
+                        <manifest>
+                            <mainClass>zhou.wu.boot.spark.test.ExecuteSqlTest</mainClass>
+                        </manifest>
+                    </archive>&ndash;&gt;
+                </configuration>
+                <executions>
+                    <execution>
+                        &lt;!&ndash; 当执行mvn package时才会打包 &ndash;&gt;
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>assembly</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>-->
 
     <build>
         <plugins>
