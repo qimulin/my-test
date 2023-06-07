@@ -54,11 +54,12 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            <!-- mockito-->
+            <!-- Mockito相关-->
             <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>2.0.2-beta</version>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
@@ -197,14 +198,6 @@
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
 <!--            <scope>test</scope>-->
-        </dependency>
-
-        <!-- mockito相关 -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
