@@ -8,11 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.mockito.verification.VerificationMode;
 
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 为什么要使用 mock？
@@ -36,11 +33,11 @@ class MockitoDemoTest {
     private Random mockRandom;
 
     /**
-     * 测试前准备
+     * 每个@Test方法前的准备
      * */
     @BeforeEach
     void setUp(){
-        System.out.println("-----测试前准备-----");
+        System.out.println("-----Each测试前准备-----");
         MockitoAnnotations.openMocks(this);
     }
 
@@ -89,8 +86,12 @@ class MockitoDemoTest {
      * */
     @Test
     void testSpy() {
-        // mockitoDemo是Spy修饰，所以会执行真正的方法，返回结果3；若改为Mock修饰，又不对行为进行打桩，则会返回默认值0
-        // 同样，Spy修饰的对象也可以进行打桩，也会取打桩定义的返回
+        /* mockitoDemo是Spy修饰，所以会执行真正的方法，返回结果3；若改为Mock修饰，又不对行为进行打桩，则会返回默认值0
+         同样，Spy修饰的对象也可以进行打桩，也会取打桩定义的返回 */
+        // thenThrow
+//        Mockito.when(mockitoDemo.add(1,2)).thenThrow(new RuntimeException("test exception"));
+        // thenCallRealMethod 顾名思义，调用真实的方法
+        Mockito.when(mockitoDemo.add(1, 2)).thenCallRealMethod();
         Assertions.assertEquals(3, mockitoDemo.add(1,2));
     }
 
