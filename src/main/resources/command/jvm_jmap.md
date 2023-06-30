@@ -60,9 +60,9 @@ jmap工具主要选项
 但如果已经发现堆内存占用变多，想得到Java堆当下的转储快照，可使用如下命令：
 ```shell
 # 使⽤jmap⽣成dump⽂件
-# format=b表示以hprof二进制格式转储Java堆的内存
+# format=b用于指定转储dump文件格式，没有指定-dump选项后的format参数，则默认将生成HPROF格式的堆转储文
 # file=<filename>用于指定快照dump文件的文件名
-jmap -dump:format=b,file=/home/develop/dump_demo.hprof vmid
+jmap -dump:file=/home/develop/dump_demo.hprof vmid
 # Dumping heap to C:\Users\IcyFenix\eclipse.bin …
 # Heap dump file created
 ```
@@ -80,15 +80,18 @@ jmap -dump:format=b,file=/home/develop/dump_demo.hprof vmid
     </tr>
     <tr>
         <td>bin格式</td>
-        <td>是Java虚拟机专有的二进制格式，用于在Java虚拟机内部传输和处理堆转储数据。bin格式的堆转储文件通常比HPROF格式的文件更加紧凑和高效，因为它们不包含额外的元数据和调试信息。但是，由于bin格式是Java虚拟机专有的格式，因此需要使用特定的工具进行解析和处理。</td>
+        <td>是Java虚拟机专有的二进制格式，用于在Java虚拟机内部传输和处理堆转储数据。bin格式的堆转储文件通常比HPROF格式的文件更加紧凑和高效，因为它们不包含额外的元数据和调试信息。但是，由于bin格式是Java虚拟机专有的格式，因此需要使用特定的工具进行解析和处理。可以使用jhat或Java Mission Control等工具进行分析和调试。</td>
         <td>jmap -dump:format=b,file=dump.bin pid</td>
     </tr>
     <tr>
         <td>SA格式</td>
-        <td>是HotSpot虚拟机的一部分，包含了HotSpot虚拟机内部的各种调试信息和状态信息，可以用于分析和调试HotSpot虚拟机的内部状态。SA格式堆转储文件通常比HPROF和bin格式的文件更加详细和全面，因为它们包含了更多的HotSpot虚拟机内部信息。但是，由于SA格式是HotSpot虚拟机专有的格式，因此需要使用特定的工具进行解析和处理。</td>
+        <td>是HotSpot虚拟机的一部分，包含了HotSpot虚拟机内部的各种调试信息和状态信息，可以用于分析和调试HotSpot虚拟机的内部状态。SA格式堆转储文件通常比HPROF和bin格式的文件更加详细和全面，因为它们包含了更多的HotSpot虚拟机内部信息。但是，由于SA格式是HotSpot虚拟机专有的格式，因此需要使用特定的工具进行解析和处理。可以使用SA Tool或Java Mission Control等工具进行分析和调试。</td>
         <td>可以使用jcmd命令的GC.heap_dump选项，例如：jcmd pid GC.heap_dump filename=sadump.bin</td>    
     </tr>
 </table>
+
+需要注意的是，不同的Java虚拟机实现可能会使用不同的堆转储格式。对于其他Java虚拟机实现，可能会使用其他不同的堆转储格式。在使用堆转储文件进行分析和调试时，
+需要了解Java虚拟机实现和堆转储格式的差异，并选择合适的工具进行分析和处理。生成堆转储文件可能会对Java应用程序的性能和响应时间产生影响。在生成堆转储文件时，建议选择合适的时间点和选项，避免对应用程序的正常运行产生过大的影响。
 
 ### -heap
 ```shell
