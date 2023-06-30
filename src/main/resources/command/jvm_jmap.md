@@ -1,6 +1,6 @@
 # Java内存映像⼯具jmap实用命令个人整理
 
-## jmap基本介绍
+## 基本介绍
 jmap（Memory Map for Java）命令⽤于⽣成堆转储快照（⼀般称为heapdump或dump⽂件）。如果不使⽤jmap命令，要想获取Java堆转储快照也还有⼀些⽐较“暴⼒”的⼿段：
 譬如- XX:+HeapDumpOnOutOfMemoryError参数，可以让虚拟机在内存溢出异常出现之后⾃动⽣成堆转储快照⽂件，通过-XX:+HeapDumpOnCtrlBreak参数则可以使⽤[Ctrl]+[Break]键让虚拟机⽣成堆转储快照⽂件，
 ⼜或者在Linux系统下通过Kill-3命令发送进程退出信号“恐吓”⼀下虚拟机，也能顺利拿到堆转储快照。jmap的作⽤并不仅仅是为了获取堆转储快照，它还可以查询finalize执⾏队列、Java堆和⽅法区的详细信息，
@@ -44,7 +44,7 @@ jmap工具主要选项
     </tr>
 </table>
 
-## 实用参数
+## 实用选项
 ### -dump
 一般情况下，在Java应用启动的时候，可以添加如下启动命令配置，使其能在堆内存溢出的时候自动生成dump文件
 ```text
