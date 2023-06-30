@@ -194,8 +194,10 @@ using thread-local object allocation.
 Concurrent Mark-Sweep GC  // GC 方式
 
 Heap Configuration: // 堆内存初始化配置
-   MinHeapFreeRatio         = 40  // 对应jvm启动参数-XX:MinHeapFreeRatio设置JVM堆最小空闲比率(default 40)
-   MaxHeapFreeRatio         = 70  // 对应jvm启动参数 -XX:MaxHeapFreeRatio设置JVM堆最大空闲比率(default 70) 
+   # 空闲堆空间的最小百分比，计算公式为：HeapFreeRatio =(CurrentFreeHeapSize/CurrentTotalHeapSize) * 100，值的区间为0到100，默认值为 40。如果HeapFreeRatio < MinHeapFreeRatio，则需要进行堆扩容，扩容的时机应该在每次垃圾回收之后。
+   MinHeapFreeRatio         = 40  // 对应jvm启动参数-XX:MinHeapFreeRatio设置JVM堆最小空闲比率(default 40) 
+   # 空闲堆空间的最大百分比，计算公式为：HeapFreeRatio =(CurrentFreeHeapSize/CurrentTotalHeapSize) * 100，值的区间为0到100，默认值为 70。如果HeapFreeRatio > MaxHeapFreeRatio，则需要进行堆缩容，缩容的时机应该在每次垃圾回收之后。
+   MaxHeapFreeRatio         = 70  // 对应jvm启动参数-XX:MaxHeapFreeRatio设置JVM堆最大空闲比率(default 70) 
    MaxHeapSize              = 4294967296 (4096.0MB) // 对应jvm启动参数-XX:MaxHeapSize=设置JVM堆的最大大小
    NewSize                  = 2147483648 (2048.0MB) // 对应jvm启动参数-XX:NewSize=设置JVM堆的‘新生代’的默认大小
    MaxNewSize               = 2147483648 (2048.0MB) // 对应jvm启动参数-XX:MaxNewSize=设置JVM堆的‘新生代’的最大大小
@@ -362,5 +364,4 @@ jstack vmid
     </pre> </body>
 </html>
 ```
-
 
