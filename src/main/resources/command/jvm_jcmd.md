@@ -14,7 +14,10 @@ jcmd <pid | main class> <command ...| PerfCounter.print | -f file>
 ```
 
 ## 实用选项
+### 导航
+
 jcmd⼯具常用选项：
+
 <table>
     <tr>
       <th>选项</th>
@@ -43,7 +46,10 @@ jcmd⼯具常用选项：
 </table>
 
 
-### help [options] [arguments]
+### help 
+
+help [options] [arguments]
+
 - 作用：查看指定命令的帮助信息
 - arguments：想查看帮助的命令（STRING，无默认值）
 - options：选项，必须使用key或者key=value的语法指定，可用的options如下：
@@ -54,7 +60,22 @@ jcmd <pid> help
 # 获取指定进程、指定命令的帮助信息，如果参数包含空格，需要用 ' 或者 " 引起来
 jcmd <pid> help <command>
 ```
-### GC.class_histogram [options]
+上面提到，不带其他参数help命令可以查看所有可用的jcmd子命令及其用法，哪些情况有的jcmd子命令不可用？
+
+jcmd命令的子命令可用性取决于正在运行的Java进程以及Java版本和操作系统等因素。具体来说，以下情况可能导致某些jcmd子命令不可用：
+
+- 如果Java进程没有启用JMX（Java管理扩展）或未开启远程JMX连接，则jcmd命令无法连接到该进程并执行相应的子命令。
+- 如果Java进程的启动参数中没有指定-XX:+UnlockCommercialFeatures选项，则jcmd命令的一些商业功能子命令（如VM.check_commercial_features）可能无法使用。
+- 如果运行jcmd命令的用户没有足够的权限，例如没有足够的操作系统权限或Java安全管理策略限制，则可能会导致某些jcmd子命令无法执行。
+- 如果Java版本较旧，可能会缺少某些jcmd子命令或某些子命令的功能。例如，在Java 6或更早的版本中，jcmd命令不可用。
+- 如果正在运行的Java进程是使用其他语言编写的，而不是Java，则jcmd命令可能无法连接到该进程并执行相应的子命令。
+
+因此，在使用jcmd命令时，需要注意上述因素可能导致某些子命令无法使用。在执行特定的子命令之前，最好查阅相关文档或使用jcmd help命令来了解该命令是否可用以及如何正确使用。
+
+### GC.class_histogram 
+
+GC.class_histogram [options]
+
 - 作用：提供有关Java堆使用情况的统计信息
 - 影响：高 （取决于Java堆的大小和内容）
 - 所需权限：java.lang.management.ManagementPermission(monitor)
@@ -78,7 +99,10 @@ jcmd <pid> VM.unlock_commercial_features
 # 数据头部取N行显示
 jcmd <pid> GC.class_histogram | head -n N
 ```
-### GC.class_stats [options] [arguments]
+### GC.class_stats 
+
+GC.class_stats [options] [arguments]
+
 - 作用：展示有关Java类元数据的统计信息
 - 影响：高（取决于Java堆的大小和内容）
 - options：选项，必须使用key或者key=value的语法指定，可用的options如下：
@@ -115,4 +139,125 @@ jcmd 12737 GC.class_stats -cvs InstBytes,KlassBytes > t.csv
 - 作用：展示有关Java finalization queue的信息
 - 影响：中
 - 所需权限：java.lang.management.ManagementPermission(monitor)
+
+### GC.heap_dump 
+
+- 作用：生成Java堆Dump文件（HPROF格式）
+- 影响：高（取决于Java堆大小和内容。除非指定了-all选项，否则会导致Full GC
+- 所需权限：java.lang.management.ManagementPermission(monitor)
+- options：选项，必须使用key或者key=value的语法指定，可用的options如下：
+  - -all：（可选）转储所有对象，包括不可达对象（BOOLEAN，false）
+- arguments：参数，可用的参数如下：
+  - filename：Dump文件的名称（STRING，无默认值）
+
+使用示例：
+
+```text
+jcmd 12737 GC.heap_dump -all 1.hprof
+```
+
+### GC.heap_info
+- 作用：展示Java堆信息
+
+- 影响：中
+- 所需权限：java.lang.management.ManagementPermission(monitor)
+
+使用示例：
+
+```text
+[develop@node1 ~]$ jcmd 5870 GC.heap_info
+5870:
+ par new generation   total 471872K, used 128455K [0x00000000c0000000, 0x00000000e0000000, 0x00000000e0000000)
+  eden space 419456K,  21% used [0x00000000c0000000, 0x00000000c5857040, 0x00000000d99a0000)
+  from space 52416K,  72% used [0x00000000d99a0000, 0x00000000dbebad98, 0x00000000dccd0000)
+  to   space 52416K,   0% used [0x00000000dccd0000, 0x00000000dccd0000, 0x00000000e0000000)
+ concurrent mark-sweep generation total 524288K, used 77917K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+ Metaspace       used 87246K, capacity 92527K, committed 92800K, reserved 1130496K
+  class space    used 10219K, capacity 11053K, committed 11136K, reserved 1048576K
+```
+
+### GC.run
+
+- 作用：调用`java.lang.System.gc()`
+- 影响：中（取决于Java堆的大小和内容）
+
+### GC.run_finalization
+
+- 作用：`java.lang.System.runFianlization()`
+- 影响：中（取决于Java内容）
+
+### Thread.print 
+
+Thread.print [options]
+
+- 作用：打印所有带有堆栈跟踪的线程
+- 影响：中（取决于线程数）
+- 所需权限：java.lang.management.ManagementPermission(monitor)
+- options：选项，必须使用key或者key=value的语法指定，可用的options如下：
+  - -l：（可选）打印java.util.concurrent锁（BOLEAN，false）
+
+使用示例：
+
+```text
+jcmd 12737 Thread.print -l
+```
+
+### VM.info
+
+- 作用：打印有关JVM环境和状态的信息
+- 影响：低
+- 允许：java.lang.management.ManagementPermission(monitor)
+
+> 需要注意的是，`jcmd`命令需要在Java虚拟机启动时指定`-XX:+UnlockDiagnosticVMOptions`选项，才能够执行`VM.info`子命令。
+>
+> 因此，在使用`jcmd VM.info`命令之前，需要确保Java虚拟机已经启动，并且启动时指定了`-XX:+UnlockDiagnosticVMOptions`选项。
+
+使用示例：
+
+````text
+$ jcmd 1234 VM.info
+1234:
+Java Virtual Machine Specification:
+  ...
+Java Virtual Machine Implementation:
+  ...
+Java Runtime Environment:
+  ...
+JVM home directory:
+  ...
+JVM command line:
+  ...
+...
+```
+``jcmd`命令会输出一些Java虚拟机的基本信息，包括Java虚拟机的规范、实现和运行环境信息，以及Java虚拟机的启动参数、命令行等信息。
+````
+
+
+
+### VM.flags
+
+VM.flags [options]
+
+- 作用：打印VM标志及其当前值
+- 影响：低
+- 所需权限：java.lang.management.ManagementPermission(monitor)
+- options：选项，必须使用key或者key=value的语法指定，可用的options如下：
+  - -all：（可选）打印VM支持的所有标志（BOOLEAN，false）
+
+使用示例：
+
+```text
+$ jcmd [pid] VM.flags
+[pid]:
+-XX:InitialHeapSize=1073741824
+-XX:MaxHeapSize=4294967296
+-XX:+PrintCommandLineFlags
+...
+sun.java.command = [HelloWorld](poe://www.poe.com/_api/key_phrase?phrase=HelloWorld&prompt=Tell%20me%20more%20about%20HelloWorld.)
+sun.java.launcher = SUN_STANDARD
+sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+...
+```
+
+
 
