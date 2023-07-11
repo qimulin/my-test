@@ -3,6 +3,8 @@
 
     <contextName>logback</contextName>
     <property name="log.path" value="/data/applogs/xxl-job/xxl-job-executor-sample-springboot.log"/>
+    <!-- 用来测试做SiftingAppender -->
+    <property name="sift.log.path" value="/data/logs/sift-log-demo"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -21,9 +23,39 @@
         </encoder>
     </appender>
 
+    <conversionRule conversionWord="messsage"
+                    converterClass="org.apache.dolphinscheduler.server.log.SensitiveDataConverter"/>
+    <!-- 测试SiftingAppender -->
+    <appender name="siftdemo" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter> -->
+        <filter class="zhou.wu.boot_xxl_job.sift_log.SiftLogFilter">
+            <!-- 自行查看类代码，设置level字段也可以参与条件判断，通过level被过滤出来 -->
+            <level>WARN</level>
+        </filter>
+        <Discriminator class="zhou.wu.boot_xxl_job.sift_log.SiftLogDiscriminator">
+            <key>myKey</key>
+            <logBase>${sift.log.path}</logBase>
+        </Discriminator>
+        <sift>
+            <appender name="FILE-${myKey}" class="ch.qos.logback.core.FileAppender">
+                <file>${sift.log.path}/${myKey}.log</file>
+                <encoder>
+                    <pattern>
+                        [%level] %date{yyyy-MM-dd HH:mm:ss.SSS} %logger{96}:[%line] - %messsage%n
+                    </pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
+                <append>true</append>
+            </appender>
+        </sift>
+    </appender>
+
     <root level="info">
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
+        <appender-ref ref="siftdemo"/>
     </root>
 
 </configuration>
