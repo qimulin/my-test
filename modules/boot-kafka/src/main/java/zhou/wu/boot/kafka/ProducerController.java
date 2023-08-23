@@ -18,11 +18,17 @@ public class ProducerController {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @RequestMapping("/test-send")
+    public String register(String message) {
+        System.out.println("接收到用户信息：" + message);
+        kafkaTemplate.send(Constant.TOPIC_MY_TEST, message);
+        return "OK";
+    }
+
+    @RequestMapping("/test-send-user")
     public String register(User user) {
         String message = JSON.toJSONString(user);
         System.out.println("接收到用户信息：" + message);
-        kafkaTemplate.send(Constant.TEST_TOPIC, message);
-        //kafka.send(String topic, @Nullable V data) {
+        kafkaTemplate.send(Constant.TOPIC_USER, message);
         return "OK";
     }
 
