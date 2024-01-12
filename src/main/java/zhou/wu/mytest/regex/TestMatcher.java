@@ -37,23 +37,140 @@ public class TestMatcher {
         System.out.println(matcher.group());
         System.out.println(matcher.groupCount());
         System.out.println(matcher.group(1));
-        test1();
+//        test1();
+//        test2();
+//        test3();
+        test4();
     }
 
     public static void test1(){
         // 达梦建表语句示例
-        String dmCreateTableSql = "CREATE TABLE \"STORAGE\".\"DM9\"\r\n(\r\n\"name\" VARCHAR(20),\r\n\"age\" INT,\r\n\"grage\" VARCHAR(50)) STORAGE(ON \"WZETESTX\", CLUSTERBTR) ;";
+        String dmCreateTableSql = "create TABLE \"WZETESTX\".\"DM9\"\r\n(\r\n\"name\" VARCHAR(20),\r\n\"age\" INT,\r\n\"STORAGE\" VARCHAR(50)) STORAGE(ON \"WZETESTX\", CLUSTERBTR) ;";
 
-        String pattern = "(^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\))\\s+STORAGE.*;?";
+        String pattern = "((?i)^CREATE\\s+TABLE\\s+[^;]+\\(.*\\))\\s+\\bSTORAGE.*;?";
+//        String pattern = "(^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\))\\s?(STORAGE.*)?;?";
+
+//        String pattern = "^create table(?!.*;)(?!.*\\bSTORAGE\\b).*";
         Pattern regex = Pattern.compile(pattern);
         Matcher matcher = regex.matcher(dmCreateTableSql);
-
+        // 判断是否有匹配的部分
         if (matcher.find()) {
+            System.out.println(matcher.group(0));
             // 只要建表语句表结构那一块
             String result = matcher.group(1);
             System.out.println(result);
         } else {
             System.out.println("No match found.");
         }
+    }
+
+    public static void test2(){
+        String input = "This is a test string.";
+        // 负向前瞻（Negative Lookahead）是正则表达式中的一种特殊语法，用于在匹配过程中指定一个条件，这个条件必须在当前位置的右侧不出现。这个“右侧”很重要
+        String pattern = "(?!.*is).*";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(input);
+
+        if (matcher.find()) {
+            String result = matcher.group(0);
+            System.out.println(result);
+        } else {
+            System.out.println("No match found.");
+        }
+
+    }
+
+    public static void test3(){
+        // mysql建表语句示例
+        String mysqlCreateTableSql = "CREATE TABLE `t_ds_metadata_log` (\n" +
+                "  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
+                "  `metadata_instance_id` int(11) DEFAULT NULL COMMENT '元数据实例主键',\n" +
+                "  `table_name` varchar(255) NOT NULL COMMENT '表名',\n" +
+                "  `table_alias_name` varchar(255) DEFAULT NULL COMMENT '表注释',\n" +
+                "  `version` int(11) NOT NULL COMMENT ') ',\n" +
+                "  `create_time` datetime NOT NULL COMMENT 'COMMENT=',\n" +
+                "  PRIMARY KEY (`id`) USING BTREE,\n" +
+                "  UNIQUE KEY `idx_log` (`metadata_instance_id`,`version`) USING BTREE\n" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=7474 DEFAULT CHARSET=utf8";
+
+        System.out.println(extractPureStructureCreateTableSql(mysqlCreateTableSql));
+
+//        String pattern = "((?i)^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\)).*?((?i)\\bCOMMENT='[^']*');?";   // \s+\b(ENGINE=InnoDB).*(\bCOMMENT='.*')?;?
+//        String pattern = "(^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\))\\s?(STORAGE.*)?;?";
+
+//        String pattern = "^create table(?!.*;)(?!.*\\bSTORAGE\\b).*";
+//        Pattern regex = Pattern.compile(pattern);
+//        Matcher matcher = regex.matcher(mysqlCreateTableSql);
+//        System.out.println("----------");
+//        // 判断是否有匹配的部分
+//        if (matcher.find()) {
+//            int count = matcher.groupCount();
+//            System.out.println(count);
+//            for (int i = 1; i <= count; i++) {
+//                System.out.println(i+" --- group");
+//                System.out.println(matcher.group(i));
+//            }
+//        } else {
+//            System.out.println("No match found.");
+//        }
+
+        String pattern = "CREATE TABLE `t1` \\(((?:[^)]|\\([^)]+\\))*)(?:.*?(COMMENT='[^']*'))?";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(mysqlCreateTableSql);
+
+        if (matcher.find()) {
+            String tableDefinition = matcher.group(1);
+            System.out.println("Table Definition:\n" + tableDefinition);
+
+            String commentSQL = matcher.group(2);
+            if (commentSQL != null) {
+                System.out.println("Comment SQL: " + commentSQL);
+            }
+        } else {
+            System.out.println("No match found.");
+        }
+    }
+
+    public static void test4(){
+        // 达梦建表语句示例
+        String dmCreateTableSql = "create TABLE \"WZETESTX\".\"DM9\"\r\n(\r\n\"name\" VARCHAR(20) comment ');',\r\n\"age\" INT,\r\n\"STORAGE\" VARCHAR(50)) STORAGE(ON \"WZETESTX\", CLUSTERBTR) ;";
+
+//        String pattern = "(?i)\\s+\\bCREATE\\s+TABLE\\b\\s+(\\bIF\\s+NOT\\s+EXISTS\\b\\s+)?(\\S)\\s*\\(.*\\)\\s*.*;?";
+        String pattern = "(?i)\\s*\\bCREATE\\s+TABLE\\b\\s+(\\bIF\\s+NOT\\s+EXISTS\\b\\s+)?(\\S+)\\s*\\((?s).+\\).*;?";
+//        String pattern = "(^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\))\\s?(STORAGE.*)?;?";;
+//        String pattern = "(^CREATE\\s+TABLE\\s+[^;]+\\([^;]+\\))\\s?(STORAGE.*)?;?";
+
+//        String pattern = "^create table(?!.*;)(?!.*\\bSTORAGE\\b).*";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(dmCreateTableSql);
+         // 判断是否有匹配的部分
+        if (matcher.find()) {
+            int count = matcher.groupCount();
+            System.out.println(count);
+            for (int i = 0; i <= count; i++) {
+                System.out.println(i+" --- group");
+                System.out.println(matcher.group(i));
+            }
+        } else {
+            System.out.println("No match found.");
+        }
+    }
+
+    public static String extractPureStructureCreateTableSql(String createTableSql) {
+        if(createTableSql==null || createTableSql.length()==0){
+            return "";
+        }
+        int index = createTableSql.lastIndexOf("ENGINE=");
+        if(index<=0){
+            return createTableSql;
+        }
+        String str1 = createTableSql.substring(0, index);
+        String str2 = createTableSql.substring(index);
+        int tableCommentIndex = str2.lastIndexOf("COMMENT");
+        if(tableCommentIndex<0){
+            return str1;
+        }
+        // 有表注释的话拼上表注释
+        return str1.concat(str2.substring(tableCommentIndex));
     }
 }
