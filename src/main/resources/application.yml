@@ -1,10 +1,10 @@
 spring:
   profiles:
     active: dev
-  security:
-    user:
-      name: dfactory
-      password: Dfactory@2021
+#  security:
+#    user:
+#      name: dfactory
+#      password: Dfactory@2021
 
 logging:
   level.root: info

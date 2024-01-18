@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
  * @date 2019/11/6
  */
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class DemoAspect {
 
     @Autowired
