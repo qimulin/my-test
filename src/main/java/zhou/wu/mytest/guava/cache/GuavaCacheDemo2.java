@@ -3,16 +3,18 @@ package zhou.wu.mytest.guava.cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 /**
+ * Demo 2
  * @author zhou.wu
- * @description Demo 2
  * @date 2023/3/16
  **/
+@Slf4j
 public class GuavaCacheDemo2 {
     public static void main(String[] args) throws Exception {
         LoadingCache<Integer, String> cache = CacheBuilder.newBuilder()
@@ -44,7 +46,7 @@ public class GuavaCacheDemo2 {
             try {
                 for (int i = 0; i < 15; i++) {
                     String value = cache.get(1);
-                    System.out.println(Thread.currentThread().getName() + " " + simpleDateFormat.format(new Date()) + " " + value);
+                    log.info(Thread.currentThread().getName() + " " + simpleDateFormat.format(new Date()) + " " + value);
                     TimeUnit.SECONDS.sleep(3);
                 }
             } catch (Exception ignored) {
@@ -56,14 +58,14 @@ public class GuavaCacheDemo2 {
             try {
                 for (int i = 0; i < 10; i++) {
                     String value = cache.get(1);
-                    System.out.println(Thread.currentThread().getName() + " " + simpleDateFormat.format(new Date()) + " " + value);
+                    log.info(Thread.currentThread().getName() + " " + simpleDateFormat.format(new Date()) + " " + value);
                     TimeUnit.SECONDS.sleep(5);
                 }
             } catch (Exception ignored) {
             }
         }).start();
         //缓存状态查看
-        System.out.println(cache.stats().toString());
+        log.info("stats: {}", cache.stats().toString());
     }
 
     /**
@@ -72,10 +74,11 @@ public class GuavaCacheDemo2 {
     public static class DemoCacheLoader extends CacheLoader<Integer, String> {
         @Override
         public String load(Integer key) throws Exception {
-            System.out.println(Thread.currentThread().getName() + " 加载数据开始");
+            log.info(Thread.currentThread().getName() + " 加载数据开始");
+            // 随机设置缓存值
             TimeUnit.SECONDS.sleep(8);
             Random random = new Random();
-            System.out.println(Thread.currentThread().getName() + " 加载数据结束");
+            log.info(Thread.currentThread().getName() + " 加载数据结束");
             return "value:" + random.nextInt(10000);
         }
     }
