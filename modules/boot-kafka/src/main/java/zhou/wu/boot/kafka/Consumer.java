@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Consumer {
 
-    @KafkaListener(topics = Constant.TEST_TOPIC)
+    @KafkaListener(topics = Constant.TOPIC_MY_TEST)
     public void consume(String message) {
         System.out.println("接收到消息：" + message);
         User user = JSON.parseObject(message, User.class);
