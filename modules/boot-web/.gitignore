@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### add by zhou.wu 2024/2/29 ###
+.mvn/wrapper/*.jar
+.mvn/wrapper/*.properties
