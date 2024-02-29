@@ -220,20 +220,6 @@
             <artifactId>mockito-inline</artifactId>
         </dependency>
 
-        <!-- Bouncy Castle加密库 -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.68</version>
-        </dependency>
-
-        <!-- Apache Calcite -->
-        <dependency>
-            <groupId>org.apache.calcite</groupId>
-            <artifactId>calcite-core</artifactId>
-            <version>1.36.0</version>
-        </dependency>
-
         <!-- google guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
