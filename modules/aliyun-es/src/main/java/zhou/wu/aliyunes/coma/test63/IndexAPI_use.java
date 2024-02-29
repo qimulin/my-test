@@ -33,7 +33,7 @@ public class IndexAPI_use {
 
         RestClientBuilder builder = RestClient.builder(new HttpHost(EsConstant.ADDRESS, EsConstant.PORT))
                 .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
-
+                    @Override
                     public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
                         return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
                     }
