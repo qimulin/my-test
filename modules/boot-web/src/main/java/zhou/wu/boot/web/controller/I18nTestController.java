@@ -22,7 +22,19 @@ public class I18nTestController {
      * @date 2024/2/29
      */
     @GetMapping("/hello")
-    public String listUserInfo(String key){
+    public String hello(String key){
         return I18nMessageUtils.getMessage(key);
+    }
+
+    /**
+     * 带参示例
+     *
+     * @author zhou.wu
+     * @date 2024/2/29
+     */
+    @GetMapping("/with-param")
+    public String withParam(String str){
+        String key = "demo.illegal.param";
+        return I18nMessageUtils.getMessage(key, new String[]{str});
     }
 }
