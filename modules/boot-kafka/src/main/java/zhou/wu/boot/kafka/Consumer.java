@@ -5,8 +5,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * 消费者
  * @author zhou.wu
- * @description 消费者
  * @date 2023/4/13
  **/
 @Component

@@ -1,8 +1,8 @@
 package zhou.wu.boot.kafka;
 
 /**
+ * 常量
  * @author zhou.wu
- * @description 常量
  * @date 2023/4/13
  **/
 public class Constant {

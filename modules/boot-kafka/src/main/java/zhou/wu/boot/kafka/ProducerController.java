@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 生产者
  * @author zhou.wu
- * @description 生产者
  * @date 2023/4/13
  **/
 @RestController
