@@ -5,6 +5,9 @@ spring:
 #    user:
 #      name: dfactory
 #      password: Dfactory@2021
+  # 国际化资源文件路径
+  messages:
+    basename: i18n/message
 
 logging:
   level.root: info
