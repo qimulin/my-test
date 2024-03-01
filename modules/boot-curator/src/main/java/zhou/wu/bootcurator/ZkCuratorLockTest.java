@@ -4,6 +4,8 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class ZkCuratorLockTest {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         List<Logger> loggerList = loggerContext.getLoggerList();
         loggerList.forEach(logger -> {
-            logger.setLevel(Level.ERROR);
+            logger.setLevel(Level.INFO);
         });
     }
 
@@ -51,10 +53,13 @@ public class ZkCuratorLockTest {
         Ticket12306 ticket12306 = new Ticket12306();
         // 创建客户端
         Thread t1 = new Thread(ticket12306, "携程");
-        Thread t2 = new Thread(ticket12306, "飞猪");
+//        Thread t2 = new Thread(ticket12306, "飞猪");
 
         t1.start();
-        t2.start();
+//        t2.start();
+
+        // 用来做Springboot的日志打印
+//        new SpringApplicationBuilder(ZkCuratorLockTest.class).run(args);
     }
 
 }
