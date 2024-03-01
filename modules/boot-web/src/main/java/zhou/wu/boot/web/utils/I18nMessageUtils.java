@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 
 /**
+ * 当你的应用程序需要支持多种语言和文化时，i18n（国际化）可以帮助你动态地根据用户的语言和地区偏好提供适当的文本和消息，以满足不同用户的需求
  * @author zhou.wu
  * @date 2024/2/29
  **/
