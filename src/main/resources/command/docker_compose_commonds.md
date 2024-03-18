@@ -19,7 +19,8 @@ docker-compose stop 服务名
 # /bin/bash 和 /bin/sh 都是用于在 Docker Compose 中执行命令的方式，它们的区别在于所使用的命令行解释器不同。
 # /bin/bash： 使用 /bin/bash 命令执行时，会启动 Bash 解释器进入交互式终端。Bash 是一个流行的 Unix/Linux 命令解释器，提供了丰富的功能和命令。通过这种方式进入容器，你将获得更多的功能和更强大的命令支持。
 # /bin/sh： 使用 /bin/sh 命令执行时，会启动默认的 Shell 解释器进入交互式终端。在大多数 Unix/Linux 系统中，/bin/sh 通常链接到 Bash 或其他 Shell 解释器，例如 Bourne Shell。不过，一些基于 Alpine Linux 等的轻量级容器可能默认使用的是 BusyBox 的 Shell 解释器。因此，通过这种方式进入容器时，可能会受限于较少的功能和命令。
-docker-compose exec 服务名 /bin/bash # 或者/bin/sh
+docker-compose exec 服务名 /bin/bash # docker-compose exec 服务名 bash或者
+# 或者 docker-compose exec 服务名 /bin/sh
 # 退出
 exit
 
