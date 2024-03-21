@@ -5,9 +5,10 @@
 # 如果你不加 -d 参数，Docker Compose 将以前台模式运行，也就是说服务的输出会直接输出到当前终端，而你无法使用终端进行其他操作，直到你手动停止服务
 docker-compose up -d
 # 启动 Docker Compose 文件中定义的特定服务。其中，服务名 是你要启动的服务在 docker-compose.yml 文件中定义的名称
+# docker-compose up 命令会重新启动服务，并且会检测到镜像的变化，如果有更新则会使用最新的镜像重新启动服务
 docker-compose up -d 服务名
 
-# 重启服务
+# 重启服务。使用 restart 命令可以重新启动 Docker Compose 项目中的服务，但是它不会检测镜像的变化
 docker-compose restart 服务名
 
 # 停止 Docker Compose 中定义的所有服务
