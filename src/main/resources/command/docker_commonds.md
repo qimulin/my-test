@@ -35,6 +35,8 @@ docker run -p 8761:8761 -t eureka-server
 docker kill <container_id_or_name>
 # 重启容器
 docker restart <container_id_or_name>
+# 移除容器
+docker rm <container_id_or_name>
 
 # 查询运行容器的配置信息
 docker inspect <container_id_or_name>
