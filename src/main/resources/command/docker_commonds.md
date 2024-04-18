@@ -44,6 +44,8 @@ docker inspect <container_id_or_name>
 docker inspect <container_id_or_name> | grep -i logpath
 # 查看容器的环境变量
 docker exec <container_id_or_name> env
+# 不进入容器，查看容器内文件内容，可使用
+docker exec <container_id_or_name> cat /log/file.log
 
 # 查看容器进程在宿主机的 PID(docker 中运行的进程, 本质上是运行在 host 上的)
 docker container top <container_id_or_name>

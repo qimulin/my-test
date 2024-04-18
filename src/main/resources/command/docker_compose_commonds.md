@@ -16,6 +16,9 @@ docker-compose down
 # 停止 Docker Compose 中定义的特定服务
 docker-compose stop 服务名
 
+# 不进入容器，查看容器内文件内容，可使用
+docker-compose exec <container_id_or_name> cat /log/file.log
+
 # 使用 docker-compose exec 命令来进入正在运行的 Docker 容器内部
 # /bin/bash 和 /bin/sh 都是用于在 Docker Compose 中执行命令的方式，它们的区别在于所使用的命令行解释器不同。
 # /bin/bash： 使用 /bin/bash 命令执行时，会启动 Bash 解释器进入交互式终端。Bash 是一个流行的 Unix/Linux 命令解释器，提供了丰富的功能和命令。通过这种方式进入容器，你将获得更多的功能和更强大的命令支持。
