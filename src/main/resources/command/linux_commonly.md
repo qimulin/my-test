@@ -1,4 +1,6 @@
-  # Linux常用命令个人整理
+# Linux常用命令个人整理
+  
+## 查看服务配置篇
 ```shell
 # 查看CentOS内核版本
 uname -r
@@ -6,7 +8,10 @@ uname -r
 sudo yum update -y
 # 清屏命令
 clear
+# 显示CPU架构信息，lscpu命令来自英文词组“list the CPU architecture”的缩写，其功能是用于显示CPU架构信息。lscpu命令会从/proc/cpuinfo文件中收集有关本机CPU架构的信息，并整理成易读的格式输出到Shell终端，运维人员可以很方便地了解到本机CPU数量、架构、线程、核心、套接字等重要指标信息~
+lscpu
 ```
+
 ## 资源使用篇
 top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况
 > top  
