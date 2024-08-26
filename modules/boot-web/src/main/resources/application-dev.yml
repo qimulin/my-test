@@ -10,14 +10,12 @@ spring:
     username: root
     password: j20032004
 
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-aliases-package: zhou.wu.boot.web.domain  # 注意：对应实体类的路径
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
   configuration:
-    # Mybatis 使用本地缓存机制（local cache）来防止循环引用和加速重复嵌套查询。
-    # SESSION：默认设置，一个 session 期间的所有查询执行都将被缓存。
-    # STATEMENT：本地 session 仅在语句执行时使用，且对同一个 session 的不同调用不会共享数据。
-    local-cache-scope: statement
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 
 # hasor dataway 相关配置
 # 启用 Dataway 功能（默认不启用）
@@ -28,3 +26,18 @@ HASOR_DATAQL_DATAWAY_ADMIN: true
 HASOR_DATAQL_DATAWAY_API_URL: /api-1
 # （可选）ui 的工作路径，只有开启 ui 管理功能后才有效
 HASOR_DATAQL_DATAWAY_UI_URL: /interface-ui/
+
+# 临时设置异步请求超时时间为60秒
+# Tomcat 的异步请求超时时间（asyncTimeout）的默认值是 30秒（30000毫秒）
+server:
+  servlet:
+    session:
+      timeout: 60s
+
+# 临时查看tomcat的debug日志
+#logging:
+#  level:
+#    org:
+#      apache:
+#        catalina:
+#          core: DEBUG

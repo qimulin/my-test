@@ -33,10 +33,16 @@
                 <version>${mysql.connector.version}</version>
             </dependency>
             <!--添加Mybatis依赖 -->
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.1.0</version>
+            </dependency>-->
+            <!--Mybatis-plus依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.7</version>
             </dependency>
             <!-- alibaba的druid数据库连接池 -->
             <dependency>
@@ -140,11 +146,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--添加Mybatis依赖 -->
+        <!--Mybatis-plus依赖 -->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!-- Druid连接池依赖 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -238,6 +245,15 @@
             <artifactId>hasor-dataway</artifactId>
             <version>4.2.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
     </dependencies>
 
     <!-- 发布相关 -->
@@ -292,9 +308,11 @@
                 <configuration>
                     <!-- 数据库相关配置 -->
                     <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
-                    <jdbcUrl>jdbc:mysql://localhost:3306/doc_generator?serverTimezone=Asia/Shanghai</jdbcUrl>
+                    <jdbcUrl>jdbc:mysql://dev-node1:3306/dolphinscheduler_init?serverTimezone=Asia/Shanghai</jdbcUrl>
                     <username>root</username>
-                    <password>j20032004</password>
+                    <password>citydo!@#123CITYDO</password>
+                    <!--<username>root</username>
+                    <password>j20032004</password>-->
                     <!-- screw 配置 -->
                     <fileType>WORD</fileType>
                     <title>数据库文档</title> <!--标题-->
