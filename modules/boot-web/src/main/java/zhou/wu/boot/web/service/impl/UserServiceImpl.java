@@ -1,10 +1,13 @@
 package zhou.wu.boot.web.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import zhou.wu.boot.web.domain.User;
 import zhou.wu.boot.web.service.UserService;
 import zhou.wu.boot.web.mapper.UserMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -12,9 +15,15 @@ import org.springframework.stereotype.Service;
 * @createDate 2024-08-26 15:29:41
 */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-    implements UserService{
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements UserService{
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public int insertBatch(List<User> userList) {
+        return userMapper.insertBatch(userList);
+    }
 }
 
 

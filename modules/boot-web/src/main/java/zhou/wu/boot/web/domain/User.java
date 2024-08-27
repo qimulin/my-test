@@ -1,6 +1,10 @@
 package zhou.wu.boot.web.domain;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -8,10 +12,12 @@ import lombok.Data;
  * @TableName user
  */
 @Data
+@TableName("user")
 public class User implements Serializable {
     /**
      * 主键ID
      */
+    @TableId(type = IdType.ASSIGN_ID)  // 指定使用雪花算法生成ID
     private Long id;
 
     /**
