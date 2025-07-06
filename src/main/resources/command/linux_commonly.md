@@ -4,12 +4,26 @@
 ```shell
 # 查看CentOS内核版本
 uname -r
+
 # 使用root权限登录系统，更新yum包更新到最新版本
 sudo yum update -y
+
 # 清屏命令
 clear
+
 # 显示CPU架构信息，lscpu命令来自英文词组“list the CPU architecture”的缩写，其功能是用于显示CPU架构信息。lscpu命令会从/proc/cpuinfo文件中收集有关本机CPU架构的信息，并整理成易读的格式输出到Shell终端，运维人员可以很方便地了解到本机CPU数量、架构、线程、核心、套接字等重要指标信息~
 lscpu
+
+# 作用
+# 查看操作系统版本信息： 该命令会读取并显示 /etc/redhat-release 文件的内容，该文件包含当前系统的发行版名称和版本号。
+# 确定系统类型： 通过查看 /etc/redhat-release 文件，可以确定当前系统是否基于 Red Hat 发行版，包括 Red Hat Enterprise Linux (RHEL)、CentOS、Fedora 等。
+cat /etc/redhat-release # 是一个常用于 Linux 系统上的命令，它的作用是显示当前系统的 Red Hat 系列发行版及其版本信息。
+
+# 确定系统架构: 通过查看 long 类型整数的位数，可以确定当前操作系统是 32 位还是 64 位。
+# getconf: 是一个用于查询系统配置信息的命令。
+# LONG_BIT: 是一个参数，表示查询 long 类型整数的位数。
+getconf LONG_BIT
+
 ```
 
 ## 资源使用篇
@@ -226,6 +240,14 @@ rm: remove regular file 'File.cfg'? y
 ### 查询
 某目录下搜索某个文件夹
 >find /目录 -name 'hs_err_pid6.log' -ls
+
+以长格式列出文件和目录的详细信息。长格式输出包括文件的权限、所有者、大小、时间戳等信息.
+```shell
+# ls命令来自英文单词list的缩写，中文译为“列出”，其功能是显示目录中的文件及其属性信息，是最常使用的Linux命令之‍一。
+# -l 显示文件的详细属性信息
+# 
+ls -lh
+```
 
 ### 查看
 判断-n lineNo logFileName后面行号的作用，
